@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - SRI ELECTRONICS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --sale: #ef4444;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --light-gray: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .tagline {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: -5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #0da271;
+        }
+
+        /* Services Section */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .service-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .service-features li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .service-features i {
+            color: var(--secondary);
+        }
+
+        /* Service Details */
+        .service-detail {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .service-detail h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .service-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-image {
+            width: 100%;
+            border-radius: var(--radius);
+        }
+
+        .problem-list {
+            list-style: none;
+        }
+
+        .problem-list li {
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background: var(--light);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .problem-list i {
+            color: var(--sale);
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column p,
+        .footer-column span,
+        .footer-column small {
+            color: #d1d5db;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .contact-icon {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #374151;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* Floating Action Buttons */
+        .floating-buttons {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 99;
+        }
+
+        .floating-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .whatsapp-btn {
+            background-color: #25d366;
+        }
+
+        .call-btn {
+            background-color: var(--primary);
+        }
+
+        .book-btn {
+            background-color: var(--secondary);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            .nav-menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                margin-top: 1rem;
+                gap: 0.5rem;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .service-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-buttons {
+                bottom: 1rem;
+                right: 1rem;
+            }
+            
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tools logo-icon"></i>
+                <div>
+                    <div class="logo-text">SRI ELECTRONICS SERVICE</div>
+                    <div class="tagline">Puducherry's No.1 Appliance Service Company</div>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link active">Services</a>
+                <a href="sales.html" class="nav-link">Sales</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Professional Services</h1>
+            <p>Expert repair and maintenance services for all your home appliances with 30 days warranty</p>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-wind service-icon"></i>
+                    <h3>AC Service & Repair</h3>
+                    <p>Complete AC maintenance, repair, and installation services for all brands</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Gas Charging</li>
+                        <li><i class="fas fa-check"></i> Deep Cleaning</li>
+                        <li><i class="fas fa-check"></i> Compressor Repair</li>
+                        <li><i class="fas fa-check"></i> Installation</li>
+                    </ul>
+                    <a href="#ac-service" class="btn">Learn More</a>
+                </div>
+
+                <div class="service-card">
+                    <i class="fas fa-snowflake service-icon"></i>
+                    <h3>Refrigerator Repair</h3>
+                    <p>Professional refrigerator repair and maintenance services</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Gas Charging</li>
+                        <li><i class="fas fa-check"></i> Compressor Repair</li>
+                        <li><i class="fas fa-check"></i> Thermostat Replacement</li>
+                        <li><i class="fas fa-check"></i> Water Leakage Fix</li>
+                    </ul>
+                    <a href="#refrigerator-service" class="btn">Learn More</a>
+                </div>
+
+                <div class="service-card">
+                    <i class="fas fa-soap service-icon"></i>
+                    <h3>Washing Machine Repair</h3>
+                    <p>Complete washing machine repair for all types and brands</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Motor Repair</li>
+                        <li><i class="fas fa-check"></i> Drum Replacement</li>
+                        <li><i class="fas fa-check"></i> PCB Board Repair</li>
+                        <li><i class="fas fa-check"></i> Water Drain Issues</li>
+                    </ul>
+                    <a href="#washing-machine-service" class="btn">Learn More</a>
+                </div>
+
+                <div class="service-card">
+                    <i class="fas fa-tv service-icon"></i>
+                    <h3>TV Service & Repair</h3>
+                    <p>LED, LCD, and Smart TV repair services</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Panel Replacement</li>
+                        <li><i class="fas fa-check"></i> Power Supply Repair</li>
+                        <li><i class="fas fa-check"></i> Sound Issues</li>
+                        <li><i class="fas fa-check"></i> Remote Problems</li>
+                    </ul>
+                    <a href="#tv-service" class="btn">Learn More</a>
+                </div>
+
+                <div class="service-card">
+                    <i class="fas fa-fire service-icon"></i>
+                    <h3>Water Heater Service</h3>
+                    <p>Geyser repair and maintenance services</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Heating Element</li>
+                        <li><i class="fas fa-check"></i> Thermostat Repair</li>
+                        <li><i class="fas fa-check"></i> Installation</li>
+                        <li><i class="fas fa-check"></i> Leakage Fix</li>
+                    </ul>
+                    <a href="#water-heater-service" class="btn">Learn More</a>
+                </div>
+
+                <div class="service-card">
+                    <i class="fas fa-tint service-icon"></i>
+                    <h3>RO Service</h3>
+                    <p>Water purifier service and maintenance</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Filter Replacement</li>
+                        <li><i class="fas fa-check"></i> Membrane Change</li>
+                        <li><i class="fas fa-check"></i> Pump Repair</li>
+                        <li><i class="fas fa-check"></i> Installation</li>
+                    </ul>
+                    <a href="#ro-service" class="btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Details -->
+    <section class="section" style="background-color: var(--light);">
+        <div class="container">
+            <!-- AC Service -->
+            <div class="service-detail" id="ac-service">
+                <h2>AC Service & Repair</h2>
+                <p>We provide comprehensive AC services including installation, repair, maintenance, and gas charging for all brands like Voltas, LG, Samsung, Daikin, and more.</p>
+                
+                <div class="service-info">
+                    <div>
+                        <h3>Common AC Problems We Fix:</h3>
+                        <ul class="problem-list">
+                            <li><i class="fas fa-tools"></i> AC not cooling properly</li>
+                            <li><i class="fas fa-tools"></i> Water leakage from AC</li>
+                            <li><i class="fas fa-tools"></i> Strange noises from unit</li>
+                            <li><i class="fas fa-tools"></i> AC not turning on</li>
+                            <li><i class="fas fa-tools"></i> Bad odor from AC</li>
+                            <li><i class="fas fa-tools"></i> Remote not working</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <img src="images/AC-repair.jpg" alt="AC Service" class="service-image">
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; text-align: center;">
+                    <a href="tel:9789967161" class="btn">Call for AC Service</a>
+                    <a href="https://wa.me/919789967161" class="btn btn-secondary">WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Refrigerator Service -->
+            <div class="service-detail" id="refrigerator-service">
+                <h2>Refrigerator Repair</h2>
+                <p>Expert refrigerator repair services for all types including single door, double door, side-by-side, and frost-free refrigerators.</p>
+                
+                <div class="service-info">
+                    <div>
+                        <img src="images/fridge-repair.jpg" alt="Refrigerator Repair" class="service-image">
+                    </div>
+                    <div>
+                        <h3>Common Fridge Problems We Fix:</h3>
+                        <ul class="problem-list">
+                            <li><i class="fas fa-tools"></i> Refrigerator not cooling</li>
+                            <li><i class="fas fa-tools"></i> Excessive frost buildup</li>
+                            <li><i class="fas fa-tools"></i> Water leakage</li>
+                            <li><i class="fas fa-tools"></i> Strange noises</li>
+                            <li><i class="fas fa-tools"></i> Compressor issues</li>
+                            <li><i class="fas fa-tools"></i> Thermostat problems</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; text-align: center;">
+                    <a href="tel:9789967161" class="btn">Call for Fridge Repair</a>
+                    <a href="https://wa.me/919789967161" class="btn btn-secondary">WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Washing Machine Service -->
+            <div class="service-detail" id="washing-machine-service">
+                <h2>Washing Machine Repair</h2>
+                <p>Complete washing machine service for top-load, front-load, and semi-automatic models from brands like LG, Samsung, IFB, Whirlpool, and more.</p>
+                
+                <div class="service-info">
+                    <div>
+                        <h3>Common Washing Machine Issues We Solve:</h3>
+                        <ul class="problem-list">
+                            <li><i class="fas fa-tools"></i> Drum not spinning or draining</li>
+                            <li><i class="fas fa-tools"></i> Loud noises during wash cycle</li>
+                            <li><i class="fas fa-tools"></i> Water leakage or overflow</li>
+                            <li><i class="fas fa-tools"></i> Control panel or PCB faults</li>
+                            <li><i class="fas fa-tools"></i> Error codes and sensor failures</li>
+                            <li><i class="fas fa-tools"></i> Door lock and gasket issues</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <img src="images/washing machine.jpg" alt="Washing Machine Service" class="service-image">
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; text-align: center;">
+                    <a href="tel:9789967161" class="btn">Call for Washing Machine Service</a>
+                    <a href="https://wa.me/919789967161" class="btn btn-secondary">WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- TV Service -->
+            <div class="service-detail" id="tv-service">
+                <h2>LED / LCD / Smart TV Service</h2>
+                <p>Professional TV repair for all panel sizes including LED, LCD, Plasma, and Smart TVs with same-day diagnostics.</p>
+                
+                <div class="service-info">
+                    <div>
+                        <img src="images/tv repai.webp" alt="TV Repair" class="service-image">
+                    </div>
+                    <div>
+                        <h3>Common TV Problems We Fix:</h3>
+                        <ul class="problem-list">
+                            <li><i class="fas fa-tools"></i> Display or panel issues</li>
+                            <li><i class="fas fa-tools"></i> Sound but no picture</li>
+                            <li><i class="fas fa-tools"></i> Power supply and motherboard faults</li>
+                            <li><i class="fas fa-tools"></i> Wi-Fi / connectivity issues</li>
+                            <li><i class="fas fa-tools"></i> Backlight and brightness problems</li>
+                            <li><i class="fas fa-tools"></i> Remote / input port issues</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; text-align: center;">
+                    <a href="tel:9789967161" class="btn">Call for TV Service</a>
+                    <a href="https://wa.me/919789967161" class="btn btn-secondary">WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Water Heater Service -->
+            <div class="service-detail" id="water-heater-service">
+                <h2>Water Heater & Geyser Service</h2>
+                <p>Installation, repair, and maintenance for instant and storage water heaters ensuring safe performance.</p>
+                
+                <div class="service-info">
+                    <div>
+                        <h3>Common Geyser Problems We Fix:</h3>
+                        <ul class="problem-list">
+                            <li><i class="fas fa-tools"></i> Water not heating or overheating</li>
+                            <li><i class="fas fa-tools"></i> Thermostat and heating element replacement</li>
+                            <li><i class="fas fa-tools"></i> Leakage from tank or pipes</li>
+                            <li><i class="fas fa-tools"></i> Tripping and electrical issues</li>
+                            <li><i class="fas fa-tools"></i> Hard water scaling and maintenance</li>
+                            <li><i class="fas fa-tools"></i> Installation and relocation support</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <img src="images/water+heater+maintenance+checklist-1920w.webp" alt="Water Heater Service" class="service-image">
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; text-align: center;">
+                    <a href="tel:9789967161" class="btn">Call for Geyser Service</a>
+                    <a href="https://wa.me/919789967161" class="btn btn-secondary">WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- RO Service -->
+            <div class="service-detail" id="ro-service">
+                <h2>RO & Water Purifier Service</h2>
+                <p>Comprehensive RO maintenance including AMC, installation, filter changes, and on-site repairs.</p>
+                
+                <div class="service-info">
+                    <div>
+                        <img src="images/ro image.webp" alt="RO Service" class="service-image">
+                    </div>
+                    <div>
+                        <h3>Common RO Issues We Fix:</h3>
+                        <ul class="problem-list">
+                            <li><i class="fas fa-tools"></i> Low water flow or no water</li>
+                            <li><i class="fas fa-tools"></i> Water taste and odor problems</li>
+                            <li><i class="fas fa-tools"></i> Pump and motor failures</li>
+                            <li><i class="fas fa-tools"></i> Filter and membrane replacement</li>
+                            <li><i class="fas fa-tools"></i> Leakage and dripping faucets</li>
+                            <li><i class="fas fa-tools"></i> Annual maintenance contracts</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; text-align: center;">
+                    <a href="tel:9789967161" class="btn">Call for RO Service</a>
+                    <a href="https://wa.me/919789967161" class="btn btn-secondary">WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SRI ELECTRONICS SERVICE</h3>
+                    <p>Puducherry's No.1 Appliance Service Company with over 10 years of experience. We provide reliable and affordable solutions for all your home appliances.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="sales.html">Sales</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="services.html#ac-service">AC Service</a></li>
+                        <li><a href="services.html#refrigerator-service">Refrigerator Repair</a></li>
+                        <li><a href="services.html#washing-machine-service">Washing Machine Repair</a></li>
+                        <li><a href="services.html#tv-service">TV Service</a></li>
+                        <li><a href="services.html#water-heater-service">Water Heater Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt contact-icon"></i>
+                            <span>Kattukarai road, Jayam Nagar, Thirukkanur, Puducherry</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone contact-icon"></i>
+                            <span>9789967161</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope contact-icon"></i>
+                            <span>srielectronicspuducherry@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock contact-icon"></i>
+                            <span>Mon-Sun: 8:00 AM - 8:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 SRI ELECTRONICS SERVICE. All Rights Reserved. | Puducherry & Villupuram</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem;"><a href="admin-login.html" style="color: #6b7280; text-decoration: none;">Admin Login</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Buttons -->
+    <div class="floating-buttons">
+        <a href="https://wa.me/919789967161" class="floating-btn whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="tel:9789967161" class="floating-btn call-btn">
+            <i class="fas fa-phone"></i>
+        </a>
+        <a href="contact.html" class="floating-btn book-btn">
+            <i class="fas fa-calendar-alt"></i>
+        </a>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navMenu = document.getElementById('navMenu');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            
+            if (!navMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

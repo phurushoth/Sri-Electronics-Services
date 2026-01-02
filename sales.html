@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales - SRI ELECTRONICS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --sale: #ef4444;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --light-gray: #e5e7eb;
+            --shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: -3px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><polygon points="1000,100 1000,0 0,100"></polygon></svg>');
+            background-size: cover;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            position: relative;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary) 0%, #0da271 100%);
+        }
+
+        /* Modern Filter Section */
+        .filter-section {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin: -3rem auto 3rem;
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+        }
+
+        .filter-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-label i {
+            color: var(--primary);
+        }
+
+        .filter-select {
+            padding: 1rem;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: white;
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .price-range {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .range-inputs {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .range-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .range-separator {
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 1rem 2rem;
+            border: 2px solid var(--primary);
+            border-radius: var(--radius);
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .filter-reset {
+            background: transparent;
+            border: 2px solid var(--gray);
+            color: var(--gray);
+        }
+
+        .filter-reset:hover {
+            background: var(--gray);
+            color: white;
+        }
+
+        /* Products Section */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            position: relative;
+            font-weight: 800;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, var(--accent) 0%, #d97706 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-content {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .product-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .product-condition {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .product-original-price {
+            text-decoration: line-through;
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-left: 0.5rem;
+            font-weight: 500;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .product-features li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--gray);
+        }
+
+        .product-features i {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Purchase Options Section */
+        .purchase-section {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 5rem 2rem;
+            border-radius: var(--radius);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .purchase-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><polygon points="1000,100 1000,0 0,100"></polygon></svg>');
+            background-size: cover;
+        }
+
+        .purchase-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .purchase-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .purchase-option {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            color: var(--dark);
+            backdrop-filter: blur(10px);
+        }
+
+        .purchase-option:hover {
+            transform: translateY(-10px);
+            background: white;
+        }
+
+        .option-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .option-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .option-desc {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #111827 100%);
+            color: white;
+            padding: 5rem 0 2rem;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-column p,
+        .footer-column span,
+        .footer-column small {
+            color: #d1d5db;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-top: 0.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* Floating Action Buttons */
+        .floating-buttons {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .floating-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .floating-btn:hover::before {
+            left: 100%;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1) translateY(-5px);
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25d366 0%, #128C7E 100%);
+        }
+
+        .call-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+
+        .book-btn {
+            background: linear-gradient(135deg, var(--secondary) 0%, #0da271 100%);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 2rem;
+            }
+            
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+                padding: 1rem;
+            }
+            
+            .logo {
+                flex: 1;
+                min-width: 200px;
+            }
+            
+            .nav-menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                margin-top: 1rem;
+                gap: 0.5rem;
+                padding: 1rem 0;
+                background: white;
+                border-top: 1px solid var(--light-gray);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .page-header {
+                padding: 3rem 1rem;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .filter-section {
+                margin: -2rem auto 2rem;
+                padding: 2rem 1.5rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .purchase-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-buttons {
+                bottom: 1rem;
+                right: 1rem;
+            }
+            
+            .floating-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .filter-title,
+            .purchase-title {
+                font-size: 1.6rem;
+            }
+            
+            .range-inputs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tools logo-icon"></i>
+                <div>
+                    <div class="logo-text">SRI ELECTRONICS SERVICE</div>
+                    <div class="tagline">Puducherry's No.1 Appliance Service Company</div>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="sales.html" class="nav-link active">Sales</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Quality Second Hand Appliances</h1>
+            <p>Affordable, reliable, and fully tested appliances with warranty. Find your perfect appliance today!</p>
+        </div>
+    </section>
+
+    <!-- Modern Filter Section -->
+    <section class="container">
+        <div class="filter-section">
+            <h2 class="filter-title">Find Your Perfect Appliance</h2>
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label class="filter-label">
+                        <i class="fas fa-filter"></i>
+                        Category
+                    </label>
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="ac">AC Units</option>
+                        <option value="refrigerator">Refrigerators</option>
+                        <option value="washing-machine">Washing Machines</option>
+                        <option value="tv">Televisions</option>
+                        <option value="water-heater">Water Heaters</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">
+                        <i class="fas fa-tag"></i>
+                        Condition
+                    </label>
+                    <select class="filter-select" id="conditionFilter">
+                        <option value="all">All Conditions</option>
+                        <option value="excellent">Excellent</option>
+                        <option value="good">Good</option>
+                        <option value="fair">Fair</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">
+                        <i class="fas fa-indian-rupee-sign"></i>
+                        Price Range
+                    </label>
+                    <div class="price-range">
+                        <div class="range-inputs">
+                            <input type="number" class="range-input" id="minPrice" placeholder="Min Price" min="0">
+                            <span class="range-separator">-</span>
+                            <input type="number" class="range-input" id="maxPrice" placeholder="Max Price" min="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">
+                        <i class="fas fa-sort-amount-down"></i>
+                        Sort By
+                    </label>
+                    <select class="filter-select" id="sortFilter">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="newest">Newest First</option>
+                        <option value="popular">Most Popular</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-actions">
+                <button class="filter-btn active" id="applyFilters">
+                    <i class="fas fa-search"></i>
+                    Apply Filters
+                </button>
+                <button class="filter-btn filter-reset" id="resetFilters">
+                    <i class="fas fa-redo"></i>
+                    Reset All
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Available Products Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Available Products</h2>
+            <div class="products-grid">
+                <!-- AC Product -->
+                <div class="product-card" data-category="ac" data-price="12500" data-condition="good">
+                    <div class="product-badge">Second Hand</div>
+                    <img src="https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Second Hand AC" class="product-image">
+                    <div class="product-content">
+                        <h3 class="product-title">Split AC 1.5 Ton</h3>
+                        <div class="product-condition">
+                            <i class="fas fa-star"></i>
+                            Good Condition • 2 Years Old
+                        </div>
+                        <div class="product-price">₹12,500 <span class="product-original-price">₹18,000</span></div>
+                        <ul class="product-features">
+                            <li><i class="fas fa-check"></i> Energy Efficient</li>
+                            <li><i class="fas fa-check"></i> Remote Included</li>
+                            <li><i class="fas fa-check"></i> 6 Months Warranty</li>
+                            <li><i class="fas fa-check"></i> Professional Installation</li>
+                        </ul>
+                        <a href="https://wa.me/919789967161?text=Hi,%20I'm%20interested%20in%20Split%20AC%201.5%20Ton" class="btn" style="width: 100%;">
+                            <i class="fab fa-whatsapp"></i>
+                            Inquire Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Refrigerator Product -->
+                <div class="product-card" data-category="refrigerator" data-price="8500" data-condition="excellent">
+                    <div class="product-badge">Second Hand</div>
+                    <img src="https://images.unsplash.com/photo-1591798454113-023b8b48794e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Second Hand Refrigerator" class="product-image">
+                    <div class="product-content">
+                        <h3 class="product-title">Double Door Refrigerator</h3>
+                        <div class="product-condition">
+                            <i class="fas fa-star"></i>
+                            Excellent Condition • 1 Year Old
+                        </div>
+                        <div class="product-price">₹8,500 <span class="product-original-price">₹12,000</span></div>
+                        <ul class="product-features">
+                            <li><i class="fas fa-check"></i> Frost Free</li>
+                            <li><i class="fas fa-check"></i> Energy Saving</li>
+                            <li><i class="fas fa-check"></i> 6 Months Warranty</li>
+                            <li><i class="fas fa-check"></i> Free Delivery</li>
+                        </ul>
+                        <a href="https://wa.me/919789967161?text=Hi,%20I'm%20interested%20in%20Double%20Door%20Refrigerator" class="btn" style="width: 100%;">
+                            <i class="fab fa-whatsapp"></i>
+                            Inquire Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Washing Machine Product -->
+                <div class="product-card" data-category="washing-machine" data-price="5200" data-condition="good">
+                    <div class="product-badge">Second Hand</div>
+                    <img src="https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Second Hand Washing Machine" class="product-image">
+                    <div class="product-content">
+                        <h3 class="product-title">Semi-Automatic Washing Machine</h3>
+                        <div class="product-condition">
+                            <i class="fas fa-star"></i>
+                            Good Condition • 18 Months Old
+                        </div>
+                        <div class="product-price">₹5,200 <span class="product-original-price">₹7,500</span></div>
+                        <ul class="product-features">
+                            <li><i class="fas fa-check"></i> 7 kg Capacity</li>
+                            <li><i class="fas fa-check"></i> Stainless Steel Drum</li>
+                            <li><i class="fas fa-check"></i> 3 Months Warranty</li>
+                            <li><i class="fas fa-check"></i> Free Installation</li>
+                        </ul>
+                        <a href="https://wa.me/919789967161?text=Hi,%20I'm%20interested%20in%20Semi-Automatic%20Washing%20Machine" class="btn" style="width: 100%;">
+                            <i class="fab fa-whatsapp"></i>
+                            Inquire Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- TV Product -->
+                <div class="product-card" data-category="tv" data-price="9800" data-condition="excellent">
+                    <div class="product-badge">Second Hand</div>
+                    <img src="https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Second Hand TV" class="product-image">
+                    <div class="product-content">
+                        <h3 class="product-title">LED Smart TV 32-inch</h3>
+                        <div class="product-condition">
+                            <i class="fas fa-star"></i>
+                            Excellent Condition • 1 Year Old
+                        </div>
+                        <div class="product-price">₹9,800 <span class="product-original-price">₹14,000</span></div>
+                        <ul class="product-features">
+                            <li><i class="fas fa-check"></i> HD Ready</li>
+                            <li><i class="fas fa-check"></i> Smart Features</li>
+                            <li><i class="fas fa-check"></i> 6 Months Warranty</li>
+                            <li><i class="fas fa-check"></i> Remote Included</li>
+                        </ul>
+                        <a href="https://wa.me/919789967161?text=Hi,%20I'm%20interested%20in%20LED%20Smart%20TV%2032-inch" class="btn" style="width: 100%;">
+                            <i class="fab fa-whatsapp"></i>
+                            Inquire Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Multiple Ways to Purchase Section -->
+    <section class="section">
+        <div class="container">
+            <div class="purchase-section">
+                <h2 class="purchase-title">Multiple Ways to Purchase</h2>
+                <div class="purchase-options">
+                    <div class="purchase-option">
+                        <i class="fas fa-store option-icon"></i>
+                        <h3 class="option-title">Visit Our Store</h3>
+                        <p class="option-desc">Come to our service center to see the products in person and get expert advice from our team</p>
+                        <a href="contact.html" class="btn">Get Directions</a>
+                    </div>
+                    <div class="purchase-option">
+                        <i class="fab fa-whatsapp option-icon"></i>
+                        <h3 class="option-title">WhatsApp Inquiry</h3>
+                        <p class="option-desc">Send us photos and details on WhatsApp for quick response and instant booking confirmation</p>
+                        <a href="https://wa.me/919789967161" class="btn btn-secondary">Message Now</a>
+                    </div>
+                    <div class="purchase-option">
+                        <i class="fas fa-phone option-icon"></i>
+                        <h3 class="option-title">Call Directly</h3>
+                        <p class="option-desc">Speak with our sales team for personalized assistance, pricing, and immediate support</p>
+                        <a href="tel:9789967161" class="btn">Call Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SRI ELECTRONICS SERVICE</h3>
+                    <p>Puducherry's No.1 Appliance Service Company with over 10 years of experience. We provide reliable and affordable solutions for all your home appliances.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="sales.html"><i class="fas fa-chevron-right"></i> Sales</a></li>
+                        <li><a href="gallery.html"><i class="fas fa-chevron-right"></i> Gallery</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="services.html#ac-service"><i class="fas fa-chevron-right"></i> AC Service</a></li>
+                        <li><a href="services.html#refrigerator-service"><i class="fas fa-chevron-right"></i> Refrigerator Repair</a></li>
+                        <li><a href="services.html#washing-machine-service"><i class="fas fa-chevron-right"></i> Washing Machine Repair</a></li>
+                        <li><a href="services.html#tv-service"><i class="fas fa-chevron-right"></i> TV Service</a></li>
+                        <li><a href="services.html#water-heater-service"><i class="fas fa-chevron-right"></i> Water Heater Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt contact-icon"></i>
+                            <span>Kattukarai road, Jayam Nagar, Thirukkanur, Puducherry</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone contact-icon"></i>
+                            <span>9789967161</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope contact-icon"></i>
+                            <span>srielectronicspuducherry@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock contact-icon"></i>
+                            <span>Mon-Sun: 8:00 AM - 8:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 SRI ELECTRONICS SERVICE. All Rights Reserved. | Puducherry & Villupuram</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem;"><a href="admin-login.html" style="color: #6b7280; text-decoration: none;">Admin Login</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Buttons -->
+    <div class="floating-buttons">
+        <a href="https://wa.me/919789967161" class="floating-btn whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="tel:9789967161" class="floating-btn call-btn">
+            <i class="fas fa-phone"></i>
+        </a>
+        <a href="contact.html" class="floating-btn book-btn">
+            <i class="fas fa-calendar-alt"></i>
+        </a>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navMenu = document.getElementById('navMenu');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            
+            if (!navMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Modern Filter Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryFilter = document.getElementById('categoryFilter');
+            const conditionFilter = document.getElementById('conditionFilter');
+            const minPrice = document.getElementById('minPrice');
+            const maxPrice = document.getElementById('maxPrice');
+            const sortFilter = document.getElementById('sortFilter');
+            const applyFilters = document.getElementById('applyFilters');
+            const resetFilters = document.getElementById('resetFilters');
+            const productCards = document.querySelectorAll('.product-card');
+
+            function filterProducts() {
+                const category = categoryFilter.value;
+                const condition = conditionFilter.value;
+                const min = minPrice.value ? parseInt(minPrice.value) : 0;
+                const max = maxPrice.value ? parseInt(maxPrice.value) : Infinity;
+                const sort = sortFilter.value;
+
+                let filteredProducts = Array.from(productCards).filter(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    const cardCondition = card.getAttribute('data-condition');
+                    const cardPrice = parseInt(card.getAttribute('data-price'));
+
+                    // Category filter
+                    if (category !== 'all' && cardCategory !== category) return false;
+                    
+                    // Condition filter
+                    if (condition !== 'all' && cardCondition !== condition) return false;
+                    
+                    // Price filter
+                    if (cardPrice < min || cardPrice > max) return false;
+                    
+                    return true;
+                });
+
+                // Sort products
+                switch(sort) {
+                    case 'price-low':
+                        filteredProducts.sort((a, b) => parseInt(a.getAttribute('data-price')) - parseInt(b.getAttribute('data-price')));
+                        break;
+                    case 'price-high':
+                        filteredProducts.sort((a, b) => parseInt(b.getAttribute('data-price')) - parseInt(a.getAttribute('data-price')));
+                        break;
+                    case 'newest':
+                        // For demo, we'll sort by price as placeholder
+                        filteredProducts.sort((a, b) => parseInt(b.getAttribute('data-price')) - parseInt(a.getAttribute('data-price')));
+                        break;
+                    case 'popular':
+                        // For demo, we'll sort by price as placeholder
+                        filteredProducts.sort((a, b) => parseInt(a.getAttribute('data-price')) - parseInt(b.getAttribute('data-price')));
+                        break;
+                }
+
+                // Hide all products first
+                productCards.forEach(card => {
+                    card.style.display = 'none';
+                });
+
+                // Show filtered products
+                filteredProducts.forEach(card => {
+                    card.style.display = 'block';
+                });
+
+                // Add animation to appearing cards
+                setTimeout(() => {
+                    filteredProducts.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.transition = 'all 0.5s ease';
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 50);
+                        }, index * 100);
+                    });
+                }, 100);
+            }
+
+            function resetAllFilters() {
+                categoryFilter.value = 'all';
+                conditionFilter.value = 'all';
+                minPrice.value = '';
+                maxPrice.value = '';
+                sortFilter.value = 'featured';
+                
+                productCards.forEach(card => {
+                    card.style.display = 'block';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                });
+            }
+
+            applyFilters.addEventListener('click', filterProducts);
+            resetFilters.addEventListener('click', resetAllFilters);
+
+            // Add enter key support for price inputs
+            [minPrice, maxPrice].forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        filterProducts();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
