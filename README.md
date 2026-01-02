@@ -1,3 +1,6 @@
+# Sri-Electronics-Services
+Sri Electronics Service is a responsive service website built using HTML and CSS to showcase electronics repair services, contact details, and customer enquiry flow. The project focuses on clean layout structure, responsive design principles, and user-friendly presentation across desktop and mobile devices.
+
 # Sri Electronics Service Website
 
 Static marketing site plus a lightweight admin dashboard for Sri Electronics Service (Puducherry). The public pages highlight services, display a gallery, and list second-hand products sold at low cost. The admin dashboard lets you:
