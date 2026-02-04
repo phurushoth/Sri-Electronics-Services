@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - SRI ELECTRONICS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f3f4f6;
+            color: #1f2937;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 20px 0;
+            z-index: 100;
+        }
+
+        .logo {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .logo-icon {
+            font-size: 40px;
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        .logo h2 {
+            font-size: 18px;
+            color: #2563eb;
+        }
+
+        .nav-menu {
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 25px;
+            color: #4b5563;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: #f1f5f9;
+            color: #2563eb;
+            border-left-color: #2563eb;
+        }
+
+        .nav-item.active {
+            background: #eff6ff;
+            color: #2563eb;
+            border-left-color: #2563eb;
+            font-weight: 500;
+        }
+
+        .nav-item i {
+            width: 24px;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #1f2937;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .stat-card:nth-child(1) .stat-icon {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .stat-card:nth-child(2) .stat-icon {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .stat-card:nth-child(3) .stat-icon {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .stat-card:nth-child(4) .stat-icon {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #1f2937;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            background: linear-gradient(to right, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-logout {
+            background: linear-gradient(to right, #dc2626, #b91c1c);
+            margin-top: auto;
+            margin: 20px 25px;
+            width: calc(100% - 50px);
+        }
+
+        .btn-logout:hover {
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
+        }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        thead {
+            background: #f9fafb;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .status-new {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .status-available {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .status-sold {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .user-info {
+                justify-content: center;
+            }
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #e5e7eb;
+            border-top-color: #2563eb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-tools logo-icon"></i>
+            <h2>SRI ELECTRONICS</h2>
+            <p style="color: #6b7280; font-size: 12px; margin-top: 5px;">Admin Panel</p>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active" onclick="showSection('dashboard')">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('contacts')">
+                <i class="fas fa-envelope"></i>
+                <span>Contact Forms</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('products')">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('gallery')">
+                <i class="fas fa-images"></i>
+                <span>Gallery</span>
+            </a>
+        </nav>
+
+        <button class="btn btn-logout" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1 id="pageTitle">Admin Dashboard</h1>
+            <div class="user-info">
+                <div class="user-avatar" id="userAvatar">A</div>
+                <span id="userEmail">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div class="content-section active" id="dashboardSection">
+            <h2 class="section-title">Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-number" id="contactCount">0</div>
+                            <div class="stat-label">Contact Forms</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-number" id="productCount">0</div>
+                            <div class="stat-label">Products</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-number" id="galleryCount">0</div>
+                            <div class="stat-label">Gallery Images</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-number" id="bookingsCount">0</div>
+                            <div class="stat-label">Service Bookings</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacts Section -->
+        <div class="content-section" id="contactsSection">
+            <h2 class="section-title">Contact Form Submissions</h2>
+            <div class="table-responsive">
+                <table id="contactsTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contactsBody">
+                        <tr>
+                            <td colspan="5" class="loading">
+                                <div class="spinner"></div>
+                                <p>Loading contacts...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <div class="content-section" id="productsSection">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 class="section-title" style="margin: 0; border: none; padding: 0;">Products Management</h2>
+                <button class="btn" onclick="openProductForm()">
+                    <i class="fas fa-plus"></i>
+                    <span>Add Product</span>
+                </button>
+            </div>
+
+            <!-- Product Form (Hidden by default) -->
+            <div id="productForm" style="display: none; background: #f8fafc; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <h3 style="margin-bottom: 15px; color: #1f2937;">Add New Product</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                    <input type="text" id="productName" placeholder="Product Name" style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 6px;">
+                    <input type="text" id="productPrice" placeholder="Price (₹)" style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 6px;">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                    <input type="text" id="productCategory" placeholder="Category" style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 6px;">
+                    <input type="text" id="productCondition" placeholder="Condition" style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 6px;">
+                </div>
+                <textarea id="productDescription" placeholder="Description" style="width: 100%; padding: 10px; border: 1px solid #e5e7eb; border-radius: 6px; margin-bottom: 15px; min-height: 100px;"></textarea>
+                <input type="file" id="productImage" accept="image/*" style="margin-bottom: 15px;">
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn" onclick="saveProduct()">Save Product</button>
+                    <button class="btn" style="background: #6b7280;" onclick="closeProductForm()">Cancel</button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="productsTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Condition</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsBody">
+                        <tr>
+                            <td colspan="6" class="loading">
+                                <div class="spinner"></div>
+                                <p>Loading products...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="content-section" id="gallerySection">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 class="section-title" style="margin: 0; border: none; padding: 0;">Gallery Management</h2>
+                <button class="btn" onclick="openGalleryUpload()">
+                    <i class="fas fa-plus"></i>
+                    <span>Add Image</span>
+                </button>
+            </div>
+
+            <!-- Gallery Upload Form -->
+            <div id="galleryUploadForm" style="display: none; background: #f8fafc; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <h3 style="margin-bottom: 15px; color: #1f2937;">Upload New Image</h3>
+                <input type="text" id="imageTitle" placeholder="Image Title" style="width: 100%; padding: 10px; border: 1px solid #e5e7eb; border-radius: 6px; margin-bottom: 15px;">
+                <input type="file" id="galleryImage" accept="image/*" style="margin-bottom: 15px;">
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn" onclick="uploadGalleryImage()">Upload Image</button>
+                    <button class="btn" style="background: #6b7280;" onclick="closeGalleryUpload()">Cancel</button>
+                </div>
+            </div>
+
+            <div id="galleryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+                <div class="loading" style="grid-column: 1 / -1;">
+                    <div class="spinner"></div>
+                    <p>Loading gallery...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+    <script>
+        // ============================================
+        // FIREBASE CONFIGURATION - REPLACE WITH YOURS
+        // ============================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyABC123...", // Replace with your API Key
+            authDomain: "your-project.firebaseapp.com", // Replace with your Auth Domain
+            projectId: "your-project-id", // Replace with your Project ID
+            storageBucket: "your-project.appspot.com", // Replace with your Storage Bucket
+            messagingSenderId: "1234567890", // Replace with your Messaging Sender ID
+            appId: "1:1234567890:web:abc123def456" // Replace with your App ID
+        };
+
+        // Initialize Firebase
+        let auth, db, storage;
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+            auth = firebase.auth();
+            db = firebase.firestore();
+            storage = firebase.storage();
+            console.log("Firebase initialized successfully");
+        } catch (error) {
+            console.error("Firebase initialization error:", error);
+            alert("Firebase configuration error. Please check your Firebase config.");
+        }
+
+        // Global variables
+        let currentUser = null;
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Dashboard loading...");
+            
+            // Check authentication
+            auth.onAuthStateChanged(async (user) => {
+                if (user) {
+                    currentUser = user;
+                    console.log("User logged in:", user.email);
+                    
+                    // Update UI
+                    document.getElementById('userEmail').textContent = user.email;
+                    document.getElementById('userAvatar').textContent = user.email.charAt(0).toUpperCase();
+                    
+                    // Load initial data
+                    await loadDashboardData();
+                    await loadContacts();
+                    await loadProducts();
+                    await loadGallery();
+                    
+                } else {
+                    console.log("No user logged in, redirecting to login");
+                    window.location.href = 'admin-login.html';
+                }
+            });
+
+            // Initialize mobile menu
+            initMobileMenu();
+        });
+
+        // Navigation functions
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section
+            const section = document.getElementById(sectionId + 'Section');
+            if (section) {
+                section.classList.add('active');
+                
+                // Update page title
+                const titles = {
+                    'dashboard': 'Dashboard',
+                    'contacts': 'Contact Submissions',
+                    'products': 'Products Management',
+                    'gallery': 'Gallery Management'
+                };
+                document.getElementById('pageTitle').textContent = titles[sectionId] || 'Dashboard';
+                
+                // Add active class to clicked nav item
+                event.currentTarget.classList.add('active');
+                
+                // Close sidebar on mobile
+                if (window.innerWidth <= 1024) {
+                    document.getElementById('sidebar').classList.remove('active');
+                }
+            }
+        }
+
+        // Mobile menu
+        function initMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.querySelector('.menu-toggle');
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth <= 1024 && 
+                    !sidebar.contains(event.target) && 
+                    !toggleBtn.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Logout function
+        async function logout() {
+            try {
+                await auth.signOut();
+                window.location.href = 'admin-login.html';
+            } catch (error) {
+                console.error("Logout error:", error);
+                alert("Error logging out. Please try again.");
+            }
+        }
+
+        // Load dashboard data
+        async function loadDashboardData() {
+            try {
+                console.log("Loading dashboard data...");
+                
+                // Load contact submissions count
+                const contactsSnapshot = await db.collection('contactSubmissions').get();
+                document.getElementById('contactCount').textContent = contactsSnapshot.size;
+                console.log("Contacts loaded:", contactsSnapshot.size);
+
+                // Load products count
+                const productsSnapshot = await db.collection('products').get();
+                document.getElementById('productCount').textContent = productsSnapshot.size;
+                console.log("Products loaded:", productsSnapshot.size);
+
+                // Load gallery count
+                const gallerySnapshot = await db.collection('gallery').get();
+                document.getElementById('galleryCount').textContent = gallerySnapshot.size;
+                console.log("Gallery loaded:", gallerySnapshot.size);
+
+                // Load bookings count
+                const bookingsSnapshot = await db.collection('serviceBookings').get();
+                document.getElementById('bookingsCount').textContent = bookingsSnapshot.size;
+                console.log("Bookings loaded:", bookingsSnapshot.size);
+
+            } catch (error) {
+                console.error("Error loading dashboard data:", error);
+                alert("Error loading dashboard data. Please refresh the page.");
+            }
+        }
+
+        // Load contacts
+        async function loadContacts() {
+            try {
+                const contactsBody = document.getElementById('contactsBody');
+                const snapshot = await db.collection('contactSubmissions')
+                    .orderBy('timestamp', 'desc')
+                    .limit(50)
+                    .get();
+                
+                contactsBody.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    contactsBody.innerHTML = `
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 40px; color: #6b7280;">
+                                No contact submissions yet
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                snapshot.forEach(doc => {
+                    const contact = doc.data();
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>${contact.name || 'N/A'}</td>
+                        <td>${contact.email || 'N/A'}</td>
+                        <td>${contact.phone || 'N/A'}</td>
+                        <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">${contact.message || 'No message'}</td>
+                        <td>${contact.timestamp ? new Date(contact.timestamp.seconds * 1000).toLocaleDateString() : 'N/A'}</td>
+                    `;
+                    
+                    contactsBody.appendChild(row);
+                });
+                
+            } catch (error) {
+                console.error("Error loading contacts:", error);
+                document.getElementById('contactsBody').innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px; color: #ef4444;">
+                            Error loading contacts. Please try again.
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Products functions
+        function openProductForm() {
+            document.getElementById('productForm').style.display = 'block';
+            document.getElementById('productForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeProductForm() {
+            document.getElementById('productForm').style.display = 'none';
+            // Clear form
+            document.getElementById('productName').value = '';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('productCategory').value = '';
+            document.getElementById('productCondition').value = '';
+            document.getElementById('productDescription').value = '';
+            document.getElementById('productImage').value = '';
+        }
+
+        async function saveProduct() {
+            const name = document.getElementById('productName').value.trim();
+            const price = document.getElementById('productPrice').value.trim();
+            const category = document.getElementById('productCategory').value.trim();
+            const condition = document.getElementById('productCondition').value.trim();
+            const description = document.getElementById('productDescription').value.trim();
+            const imageFile = document.getElementById('productImage').files[0];
+            
+            if (!name || !price || !category) {
+                alert('Please fill in all required fields: Name, Price, and Category');
+                return;
+            }
+            
+            try {
+                let imageUrl = '';
+                
+                // Upload image if provided
+                if (imageFile) {
+                    const storageRef = storage.ref();
+                    const imageRef = storageRef.child(`products/${Date.now()}_${imageFile.name}`);
+                    await imageRef.put(imageFile);
+                    imageUrl = await imageRef.getDownloadURL();
+                }
+                
+                // Save to Firestore
+                await db.collection('products').add({
+                    name,
+                    price: parseFloat(price),
+                    category,
+                    condition,
+                    description,
+                    imageUrl,
+                    available: true,
+                    timestamp: new Date(),
+                    createdAt: new Date(),
+                    createdBy: currentUser.email
+                });
+                
+                alert('Product added successfully!');
+                closeProductForm();
+                loadProducts();
+                loadDashboardData();
+                
+            } catch (error) {
+                console.error("Error saving product:", error);
+                alert('Error saving product. Please try again.');
+            }
+        }
+
+        async function loadProducts() {
+            try {
+                const productsBody = document.getElementById('productsBody');
+                const snapshot = await db.collection('products')
+                    .orderBy('timestamp', 'desc')
+                    .get();
+                
+                productsBody.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    productsBody.innerHTML = `
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 40px; color: #6b7280;">
+                                No products added yet
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                snapshot.forEach(async (doc) => {
+                    const product = doc.data();
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>
+                            <div style="font-weight: 500;">${product.name}</div>
+                            ${product.description ? `<div style="font-size: 12px; color: #6b7280;">${product.description.substring(0, 50)}...</div>` : ''}
+                        </td>
+                        <td>₹${product.price}</td>
+                        <td>${product.category}</td>
+                        <td>${product.condition || 'N/A'}</td>
+                        <td>
+                            <span class="status ${product.available ? 'status-available' : 'status-sold'}">
+                                ${product.available ? 'Available' : 'Sold'}
+                            </span>
+                        </td>
+                        <td>
+                            <div style="display: flex; gap: 5px;">
+                                <button class="btn" style="padding: 5px 10px; font-size: 12px;" onclick="editProduct('${doc.id}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn" style="padding: 5px 10px; font-size: 12px; background: #dc2626;" onclick="deleteProduct('${doc.id}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    
+                    productsBody.appendChild(row);
+                });
+                
+            } catch (error) {
+                console.error("Error loading products:", error);
+                productsBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 40px; color: #ef4444;">
+                            Error loading products. Please try again.
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        async function editProduct(productId) {
+            // Implement edit functionality
+            alert('Edit product: ' + productId);
+            // You can expand this to open a modal with the product details for editing
+        }
+
+        async function deleteProduct(productId) {
+            if (!confirm('Are you sure you want to delete this product?')) return;
+            
+            try {
+                await db.collection('products').doc(productId).delete();
+                alert('Product deleted successfully!');
+                loadProducts();
+                loadDashboardData();
+            } catch (error) {
+                console.error("Error deleting product:", error);
+                alert('Error deleting product. Please try again.');
+            }
+        }
+
+        // Gallery functions
+        function openGalleryUpload() {
+            document.getElementById('galleryUploadForm').style.display = 'block';
+            document.getElementById('galleryUploadForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeGalleryUpload() {
+            document.getElementById('galleryUploadForm').style.display = 'none';
+            document.getElementById('imageTitle').value = '';
+            document.getElementById('galleryImage').value = '';
+        }
+
+        async function uploadGalleryImage() {
+            const title = document.getElementById('imageTitle').value.trim();
+            const imageFile = document.getElementById('galleryImage').files[0];
+            
+            if (!title || !imageFile) {
+                alert('Please provide both a title and an image');
+                return;
+            }
+            
+            try {
+                // Upload image
+                const storageRef = storage.ref();
+                const imageRef = storageRef.child(`gallery/${Date.now()}_${imageFile.name}`);
+                await imageRef.put(imageFile);
+                const imageUrl = await imageRef.getDownloadURL();
+                
+                // Save to Firestore
+                await db.collection('gallery').add({
+                    title,
+                    imageUrl,
+                    timestamp: new Date(),
+                    uploadedBy: currentUser.email
+                });
+                
+                alert('Image uploaded successfully!');
+                closeGalleryUpload();
+                loadGallery();
+                loadDashboardData();
+                
+            } catch (error) {
+                console.error("Error uploading image:", error);
+                alert('Error uploading image. Please try again.');
+            }
+        }
+
+        async function loadGallery() {
+            try {
+                const galleryGrid = document.getElementById('galleryGrid');
+                const snapshot = await db.collection('gallery')
+                    .orderBy('timestamp', 'desc')
+                    .get();
+                
+                galleryGrid.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    galleryGrid.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #6b7280;">
+                            No images in gallery yet
+                        </div>
+                    `;
+                    return;
+                }
+                
+                snapshot.forEach(doc => {
+                    const image = doc.data();
+                    const imageDiv = document.createElement('div');
+                    imageDiv.style.cssText = `
+                        background: white;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    `;
+                    
+                    imageDiv.innerHTML = `
+                        <div style="height: 150px; overflow: hidden;">
+                            <img src="${image.imageUrl}" alt="${image.title}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="padding: 15px;">
+                            <div style="font-weight: 500; margin-bottom: 5px;">${image.title}</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                                <button class="btn" style="padding: 5px 10px; font-size: 12px; background: #dc2626;" onclick="deleteGalleryImage('${doc.id}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    galleryGrid.appendChild(imageDiv);
+                });
+                
+            } catch (error) {
+                console.error("Error loading gallery:", error);
+                galleryGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #ef4444;">
+                        Error loading gallery. Please try again.
+                    </div>
+                `;
+            }
+        }
+
+        async function deleteGalleryImage(imageId) {
+            if (!confirm('Are you sure you want to delete this image?')) return;
+            
+            try {
+                await db.collection('gallery').doc(imageId).delete();
+                alert('Image deleted successfully!');
+                loadGallery();
+                loadDashboardData();
+            } catch (error) {
+                console.error("Error deleting image:", error);
+                alert('Error deleting image. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>

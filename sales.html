@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sales - SRI ELECTRONICS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #2563eb;
@@ -17,9 +17,9 @@
             --light: #f9fafb;
             --gray: #6b7280;
             --light-gray: #e5e7eb;
-            --shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --radius: 12px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 8px;
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -28,64 +28,77 @@
             box-sizing: border-box;
         }
 
+        html {
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: var(--dark);
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            background-color: var(--light);
             overflow-x: hidden;
+            width: 100%;
+            position: relative;
         }
 
         .container {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 1rem;
         }
 
         /* Header Styles */
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            background-color: white;
+            box-shadow: var(--shadow);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
+            width: 100%;
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 0.8rem 0;
+            width: 100%;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
+            flex-shrink: 1;
+            min-width: 0;
         }
 
         .logo-icon {
             color: var(--primary);
-            font-size: 2rem;
+            font-size: 1.5rem;
+            flex-shrink: 0;
         }
 
         .logo-text {
-            font-size: 1.6rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: var(--primary);
+            line-height: 1.2;
         }
 
         .tagline {
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             color: var(--gray);
-            margin-top: -3px;
+            margin-top: 2px;
         }
 
         .nav-menu {
             display: flex;
-            gap: 2rem;
+            gap: 1rem;
         }
 
         .nav-link {
@@ -94,13 +107,12 @@
             font-weight: 500;
             transition: var(--transition);
             position: relative;
-            padding: 0.5rem 0;
+            padding: 0.4rem 0.6rem;
+            font-size: 0.9rem;
+            white-space: nowrap;
         }
 
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
+        .nav-link:hover,
         .nav-link.active {
             color: var(--primary);
         }
@@ -108,65 +120,56 @@
         .nav-link.active::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 2px;
+            bottom: -2px;
+            left: 0.6rem;
+            right: 0.6rem;
+            height: 2px;
+            background-color: var(--primary);
+            border-radius: 1px;
         }
 
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             color: var(--dark);
             cursor: pointer;
+            width: 40px;
+            height: 40px;
+            padding: 0.35rem;
+            align-items: center;
+            justify-content: center;
+            z-index: 101;
         }
 
         /* Page Header */
         .page-header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 4rem 0;
+            padding: 2rem 0;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .page-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><polygon points="1000,100 1000,0 0,100"></polygon></svg>');
-            background-size: cover;
+            width: 100%;
         }
 
         .page-header h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 800;
-            position: relative;
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
         }
 
         .page-header p {
-            font-size: 1.3rem;
+            font-size: 1rem;
             max-width: 800px;
             margin: 0 auto;
-            opacity: 0.9;
-            position: relative;
+            padding: 0 1rem;
+            line-height: 1.5;
         }
 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: inline-block;
+            padding: 0.7rem 1.2rem;
+            background-color: var(--primary);
             color: white;
             border: none;
             border-radius: var(--radius);
@@ -176,119 +179,92 @@
             transition: var(--transition);
             box-shadow: var(--shadow);
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
+            font-size: 0.95rem;
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.3);
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
         }
 
         .btn-secondary {
-            background: linear-gradient(135deg, var(--secondary) 0%, #0da271 100%);
+            background-color: var(--secondary);
         }
 
-        /* Modern Filter Section */
+        .btn-secondary:hover {
+            background-color: #0da271;
+        }
+
+        /* Filter Section */
         .filter-section {
             background: white;
-            padding: 3rem 2rem;
+            padding: 1.5rem;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            margin: -3rem auto 3rem;
-            position: relative;
-            z-index: 10;
-            max-width: 1200px;
+            margin: 2rem auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .filter-section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .filter-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            color: var(--primary);
             text-align: center;
-            color: var(--dark);
-            font-weight: 700;
         }
 
         .filter-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .filter-group {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-        }
-
-        .filter-label {
-            font-weight: 600;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
             gap: 0.5rem;
         }
 
-        .filter-label i {
-            color: var(--primary);
+        .filter-label {
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 0.9rem;
         }
 
-        .filter-select {
-            padding: 1rem;
-            border: 2px solid var(--light-gray);
+        .filter-select,
+        .range-input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid var(--light-gray);
             border-radius: var(--radius);
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
             transition: var(--transition);
-            background: white;
-            cursor: pointer;
+            font-size: 0.9rem;
         }
 
-        .filter-select:focus {
+        .filter-select:focus,
+        .range-input:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        .price-range {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
         .range-inputs {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             align-items: center;
-        }
-
-        .range-input {
-            flex: 1;
-            padding: 0.75rem;
-            border: 2px solid var(--light-gray);
-            border-radius: var(--radius);
-            font-family: 'Poppins', sans-serif;
         }
 
         .range-separator {
             color: var(--gray);
-            font-weight: 600;
+            font-weight: 500;
         }
 
         .filter-actions {
@@ -296,10 +272,11 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            margin-top: 1.5rem;
         }
 
         .filter-btn {
-            padding: 1rem 2rem;
+            padding: 0.7rem 1.5rem;
             border: 2px solid var(--primary);
             border-radius: var(--radius);
             background: white;
@@ -307,25 +284,17 @@
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 0.9rem;
         }
 
-        .filter-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-
+        .filter-btn:hover,
         .filter-btn.active {
             background: var(--primary);
             color: white;
         }
 
         .filter-reset {
-            background: transparent;
-            border: 2px solid var(--gray);
+            border-color: var(--gray);
             color: var(--gray);
         }
 
@@ -336,34 +305,43 @@
 
         /* Products Section */
         .section {
-            padding: 5rem 0;
+            padding: 3rem 0;
+            width: 100%;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.8rem;
-            margin-bottom: 3rem;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
             position: relative;
-            font-weight: 800;
+            font-weight: 700;
+            line-height: 1.3;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -15px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 3px;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 1.5px;
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
 
         .product-card {
@@ -372,33 +350,37 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
-            position: relative;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .product-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
         .product-badge {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: linear-gradient(135deg, var(--accent) 0%, #d97706 100%);
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
             font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-weight: 500;
             z-index: 2;
         }
 
         .product-image {
             width: 100%;
-            height: 220px;
+            height: 200px;
             object-fit: cover;
             transition: var(--transition);
         }
@@ -408,30 +390,26 @@
         }
 
         .product-content {
-            padding: 2rem;
-            position: relative;
+            padding: 1.5rem;
         }
 
         .product-title {
-            font-size: 1.4rem;
-            margin-bottom: 0.75rem;
-            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
             color: var(--dark);
         }
 
         .product-condition {
             color: var(--secondary);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
         .product-price {
-            font-size: 1.8rem;
-            font-weight: 800;
+            font-size: 1.3rem;
+            font-weight: 700;
             color: var(--primary);
             margin-bottom: 1rem;
         }
@@ -439,336 +417,315 @@
         .product-original-price {
             text-decoration: line-through;
             color: var(--gray);
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             margin-left: 0.5rem;
-            font-weight: 500;
         }
 
         .product-features {
             list-style: none;
-            margin-bottom: 2rem;
-            text-align: left;
+            margin-bottom: 1.5rem;
         }
 
         .product-features li {
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
             color: var(--gray);
+            font-size: 0.85rem;
         }
 
         .product-features i {
             color: var(--secondary);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
-        /* Purchase Options Section */
+        /* Purchase Options */
         .purchase-section {
-            text-align: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 3rem 1.5rem;
             border-radius: var(--radius);
             color: white;
-            position: relative;
-            overflow: hidden;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .purchase-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><polygon points="1000,100 1000,0 0,100"></polygon></svg>');
-            background-size: cover;
+        .purchase-section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .purchase-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            position: relative;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
             font-weight: 700;
         }
 
         .purchase-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
         }
 
         .purchase-option {
             background: rgba(255, 255, 255, 0.95);
-            padding: 3rem 2rem;
+            padding: 1.5rem;
             border-radius: var(--radius);
-            box-shadow: var(--shadow);
             text-align: center;
             transition: var(--transition);
             color: var(--dark);
-            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .purchase-option.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .purchase-option:hover {
-            transform: translateY(-10px);
-            background: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
         .option-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
         }
 
         .option-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            color: var(--dark);
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
         }
 
         .option-desc {
             color: var(--gray);
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        /* Footer Styles */
-        footer {
-            background: linear-gradient(135deg, var(--dark) 0%, #111827 100%);
-            color: white;
-            padding: 5rem 0 2rem;
-            position: relative;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-column h3 {
-            font-size: 1.4rem;
             margin-bottom: 1.5rem;
-            position: relative;
-            font-weight: 700;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 2px;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links a {
-            color: #d1d5db;
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .footer-links a:hover {
+        /* Minimal Footer */
+        footer {
+            background-color: var(--dark);
             color: white;
-            transform: translateX(5px);
-        }
-
-        .footer-column p,
-        .footer-column span,
-        .footer-column small {
-            color: #d1d5db;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-
-        .contact-icon {
-            color: var(--primary);
-            font-size: 1.3rem;
-            margin-top: 0.2rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-        }
-
-        .social-link:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
+            padding: 2rem 0;
+            width: 100%;
+            text-align: center;
         }
 
         .copyright {
-            text-align: center;
-            padding-top: 3rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
             color: #9ca3af;
             font-size: 0.9rem;
+            line-height: 1.5;
         }
 
-        /* Floating Action Buttons */
+        .copyright a {
+            color: #6b7280;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .copyright a:hover {
+            color: var(--primary);
+        }
+
+        /* Floating Action Buttons - ON RIGHT SIDE */
         .floating-buttons {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
+            bottom: 1.5rem;
+            right: 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            z-index: 1000;
+            gap: 0.8rem;
+            z-index: 99;
         }
 
         .floating-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 65px;
-            height: 65px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             color: white;
-            font-size: 1.5rem;
-            box-shadow: var(--shadow);
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             transition: var(--transition);
             text-decoration: none;
             position: relative;
-            overflow: hidden;
-        }
-
-        .floating-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .floating-btn:hover::before {
-            left: 100%;
         }
 
         .floating-btn:hover {
-            transform: scale(1.1) translateY(-5px);
+            transform: scale(1.1);
         }
 
         .whatsapp-btn {
-            background: linear-gradient(135deg, #25d366 0%, #128C7E 100%);
+            background-color: #25d366;
         }
 
         .call-btn {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background-color: var(--primary);
         }
 
         .book-btn {
-            background: linear-gradient(135deg, var(--secondary) 0%, #0da271 100%);
+            background-color: var(--secondary);
+        }
+
+        /* Animation for scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Responsive Styles */
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+                width: 100%;
+                position: relative;
+            }
+            
             .container {
-                padding: 0 2rem;
+                padding: 0 1rem;
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            
+            .header-container {
+                padding: 0.7rem 0;
+            }
+            
+            .logo {
+                min-width: 0;
+            }
+            
+            .logo-text {
+                font-size: 1rem;
+            }
+            
+            .tagline {
+                font-size: 0.65rem;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 280px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                margin-top: 0;
+                gap: 0;
+                padding: 4rem 1.5rem 1.5rem;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                overflow-y: auto;
+                z-index: 100;
+                transition: right 0.3s ease;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .nav-link {
+                padding: 0.8rem 0;
+                font-size: 1rem;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                width: 100%;
+            }
+            
+            .nav-link.active::after {
+                left: 0;
+                right: auto;
+                width: 4px;
+                height: 100%;
+                bottom: 0;
+                background-color: var(--primary);
+            }
+            
+            .page-header {
+                padding: 1.5rem 0;
+            }
+            
+            .page-header h1 {
+                font-size: 1.5rem;
+                padding: 0 1rem;
+            }
+            
+            .page-header p {
+                font-size: 0.9rem;
+                padding: 0 1rem;
+            }
+            
+            .section {
+                padding: 2rem 0;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+                padding: 0 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .filter-section {
+                margin: 1rem auto;
+                padding: 1.2rem;
             }
             
             .filter-grid {
                 grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-container {
-                flex-wrap: wrap;
-                padding: 1rem;
+                gap: 1rem;
             }
             
-            .logo {
-                flex: 1;
-                min-width: 200px;
-            }
-            
-            .nav-menu {
-                display: none;
-                width: 100%;
+            .range-inputs {
                 flex-direction: column;
-                margin-top: 1rem;
-                gap: 0.5rem;
-                padding: 1rem 0;
-                background: white;
-                border-top: 1px solid var(--light-gray);
-            }
-            
-            .nav-menu.active {
-                display: flex;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .page-header {
-                padding: 3rem 1rem;
-            }
-            
-            .page-header h1 {
-                font-size: 2.2rem;
-            }
-            
-            .filter-section {
-                margin: -2rem auto 2rem;
-                padding: 2rem 1.5rem;
             }
             
             .products-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .product-image {
+                height: 180px;
             }
             
             .purchase-options {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .purchase-section {
+                padding: 2rem 1rem;
+            }
+            
+            footer {
+                padding: 1.5rem 0;
+            }
+            
+            .copyright {
+                font-size: 0.8rem;
+                padding: 0 1rem;
             }
             
             .floating-buttons {
@@ -777,38 +734,132 @@
             }
             
             .floating-btn {
-                width: 55px;
-                height: 55px;
-                font-size: 1.3rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
             }
         }
 
         @media (max-width: 480px) {
             .container {
-                padding: 0 1rem;
+                padding: 0 0.8rem;
+            }
+            
+            .logo-text {
+                font-size: 0.9rem;
+            }
+            
+            .tagline {
+                font-size: 0.6rem;
             }
             
             .page-header h1 {
-                font-size: 1.8rem;
+                font-size: 1.3rem;
             }
             
-            .section {
-                padding: 3rem 0;
+            .page-header p {
+                font-size: 0.85rem;
             }
             
             .section-title {
-                font-size: 2rem;
+                font-size: 1.3rem;
+                margin-bottom: 1.2rem;
             }
             
-            .filter-title,
-            .purchase-title {
-                font-size: 1.6rem;
+            .product-image {
+                height: 160px;
             }
             
-            .range-inputs {
-                flex-direction: column;
+            .floating-buttons {
+                bottom: 0.8rem;
+                right: 0.8rem;
+                gap: 0.6rem;
+            }
+            
+            .floating-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
             }
         }
+
+        /* Prevent horizontal scroll and zooming */
+        @media (max-width: 767px) {
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+                position: relative;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .container {
+                overflow-x: hidden;
+            }
+            
+            /* Ensure tap targets are properly sized */
+            .btn, .nav-link, .floating-btn, .filter-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            /* Prevent zoom on mobile */
+            input, textarea, select {
+                font-size: 16px !important;
+            }
+        }
+
+        /* Desktop styles */
+        @media (min-width: 1025px) {
+            .nav-menu {
+                gap: 1.5rem;
+            }
+            
+            .nav-link {
+                font-size: 0.95rem;
+            }
+            
+            .floating-buttons {
+                right: 2rem;
+                bottom: 2rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu-btn {
+                display: none !important;
+            }
+            
+            .nav-menu {
+                position: static !important;
+                right: auto !important;
+                width: auto !important;
+                max-width: none !important;
+                height: auto !important;
+                background: none !important;
+                border-left: none !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                flex-direction: row !important;
+            }
+        }
+        /* 🔹 Mobile UX Fix: Move floating buttons to LEFT for better scrolling */
+@media (max-width: 768px) {
+    .floating-buttons {
+        right: auto;
+        left: 1rem;
+    }
+}
+
+
+        /* Animation delays */
+        .product-card:nth-child(1) { transition-delay: 0.1s; }
+        .product-card:nth-child(2) { transition-delay: 0.2s; }
+        .product-card:nth-child(3) { transition-delay: 0.3s; }
+        .product-card:nth-child(4) { transition-delay: 0.4s; }
+        
+        .purchase-option:nth-child(1) { transition-delay: 0.2s; }
+        .purchase-option:nth-child(2) { transition-delay: 0.4s; }
+        .purchase-option:nth-child(3) { transition-delay: 0.6s; }
     </style>
 </head>
 <body>
@@ -822,7 +873,7 @@
                     <div class="tagline">Puducherry's No.1 Appliance Service Company</div>
                 </div>
             </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
             <nav class="nav-menu" id="navMenu">
@@ -837,23 +888,20 @@
     </header>
 
     <!-- Page Header -->
-    <section class="page-header">
+    <section class="page-header animate-on-scroll">
         <div class="container">
             <h1>Quality Second Hand Appliances</h1>
             <p>Affordable, reliable, and fully tested appliances with warranty. Find your perfect appliance today!</p>
         </div>
     </section>
 
-    <!-- Modern Filter Section -->
+    <!-- Filter Section -->
     <section class="container">
-        <div class="filter-section">
+        <div class="filter-section animate-on-scroll">
             <h2 class="filter-title">Find Your Perfect Appliance</h2>
             <div class="filter-grid">
                 <div class="filter-group">
-                    <label class="filter-label">
-                        <i class="fas fa-filter"></i>
-                        Category
-                    </label>
+                    <label class="filter-label">Category</label>
                     <select class="filter-select" id="categoryFilter">
                         <option value="all">All Categories</option>
                         <option value="ac">AC Units</option>
@@ -865,10 +913,7 @@
                 </div>
 
                 <div class="filter-group">
-                    <label class="filter-label">
-                        <i class="fas fa-tag"></i>
-                        Condition
-                    </label>
+                    <label class="filter-label">Condition</label>
                     <select class="filter-select" id="conditionFilter">
                         <option value="all">All Conditions</option>
                         <option value="excellent">Excellent</option>
@@ -878,30 +923,21 @@
                 </div>
 
                 <div class="filter-group">
-                    <label class="filter-label">
-                        <i class="fas fa-indian-rupee-sign"></i>
-                        Price Range
-                    </label>
-                    <div class="price-range">
-                        <div class="range-inputs">
-                            <input type="number" class="range-input" id="minPrice" placeholder="Min Price" min="0">
-                            <span class="range-separator">-</span>
-                            <input type="number" class="range-input" id="maxPrice" placeholder="Max Price" min="0">
-                        </div>
+                    <label class="filter-label">Price Range</label>
+                    <div class="range-inputs">
+                        <input type="number" class="range-input" id="minPrice" placeholder="Min Price" min="0">
+                        <span class="range-separator">-</span>
+                        <input type="number" class="range-input" id="maxPrice" placeholder="Max Price" min="0">
                     </div>
                 </div>
 
                 <div class="filter-group">
-                    <label class="filter-label">
-                        <i class="fas fa-sort-amount-down"></i>
-                        Sort By
-                    </label>
+                    <label class="filter-label">Sort By</label>
                     <select class="filter-select" id="sortFilter">
                         <option value="featured">Featured</option>
                         <option value="price-low">Price: Low to High</option>
                         <option value="price-high">Price: High to Low</option>
                         <option value="newest">Newest First</option>
-                        <option value="popular">Most Popular</option>
                     </select>
                 </div>
             </div>
@@ -922,102 +958,14 @@
     <!-- Available Products Section -->
     <section class="section">
         <div class="container">
-            <h2 class="section-title">Available Products</h2>
-            <div class="products-grid">
-                <!-- AC Product -->
-                <div class="product-card" data-category="ac" data-price="12500" data-condition="good">
-                    <div class="product-badge">Second Hand</div>
-                    <img src="https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Second Hand AC" class="product-image">
-                    <div class="product-content">
-                        <h3 class="product-title">Split AC 1.5 Ton</h3>
-                        <div class="product-condition">
-                            <i class="fas fa-star"></i>
-                            Good Condition • 2 Years Old
-                        </div>
-                        <div class="product-price">₹12,500 <span class="product-original-price">₹18,000</span></div>
-                        <ul class="product-features">
-                            <li><i class="fas fa-check"></i> Energy Efficient</li>
-                            <li><i class="fas fa-check"></i> Remote Included</li>
-                            <li><i class="fas fa-check"></i> 6 Months Warranty</li>
-                            <li><i class="fas fa-check"></i> Professional Installation</li>
-                        </ul>
-                        <a href="https://wa.me/919789967161?text=Hi,%20I'm%20interested%20in%20Split%20AC%201.5%20Ton" class="btn" style="width: 100%;">
-                            <i class="fab fa-whatsapp"></i>
-                            Inquire Now
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Refrigerator Product -->
-                <div class="product-card" data-category="refrigerator" data-price="8500" data-condition="excellent">
-                    <div class="product-badge">Second Hand</div>
-                    <img src="https://images.unsplash.com/photo-1591798454113-023b8b48794e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Second Hand Refrigerator" class="product-image">
-                    <div class="product-content">
-                        <h3 class="product-title">Double Door Refrigerator</h3>
-                        <div class="product-condition">
-                            <i class="fas fa-star"></i>
-                            Excellent Condition • 1 Year Old
-                        </div>
-                        <div class="product-price">₹8,500 <span class="product-original-price">₹12,000</span></div>
-                        <ul class="product-features">
-                            <li><i class="fas fa-check"></i> Frost Free</li>
-                            <li><i class="fas fa-check"></i> Energy Saving</li>
-                            <li><i class="fas fa-check"></i> 6 Months Warranty</li>
-                            <li><i class="fas fa-check"></i> Free Delivery</li>
-                        </ul>
-                        <a href="https://wa.me/919789967161?text=Hi,%20I'm%20interested%20in%20Double%20Door%20Refrigerator" class="btn" style="width: 100%;">
-                            <i class="fab fa-whatsapp"></i>
-                            Inquire Now
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Washing Machine Product -->
-                <div class="product-card" data-category="washing-machine" data-price="5200" data-condition="good">
-                    <div class="product-badge">Second Hand</div>
-                    <img src="https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Second Hand Washing Machine" class="product-image">
-                    <div class="product-content">
-                        <h3 class="product-title">Semi-Automatic Washing Machine</h3>
-                        <div class="product-condition">
-                            <i class="fas fa-star"></i>
-                            Good Condition • 18 Months Old
-                        </div>
-                        <div class="product-price">₹5,200 <span class="product-original-price">₹7,500</span></div>
-                        <ul class="product-features">
-                            <li><i class="fas fa-check"></i> 7 kg Capacity</li>
-                            <li><i class="fas fa-check"></i> Stainless Steel Drum</li>
-                            <li><i class="fas fa-check"></i> 3 Months Warranty</li>
-                            <li><i class="fas fa-check"></i> Free Installation</li>
-                        </ul>
-                        <a href="https://wa.me/919789967161?text=Hi,%20I'm%20interested%20in%20Semi-Automatic%20Washing%20Machine" class="btn" style="width: 100%;">
-                            <i class="fab fa-whatsapp"></i>
-                            Inquire Now
-                        </a>
-                    </div>
-                </div>
-
-                <!-- TV Product -->
-                <div class="product-card" data-category="tv" data-price="9800" data-condition="excellent">
-                    <div class="product-badge">Second Hand</div>
-                    <img src="https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Second Hand TV" class="product-image">
-                    <div class="product-content">
-                        <h3 class="product-title">LED Smart TV 32-inch</h3>
-                        <div class="product-condition">
-                            <i class="fas fa-star"></i>
-                            Excellent Condition • 1 Year Old
-                        </div>
-                        <div class="product-price">₹9,800 <span class="product-original-price">₹14,000</span></div>
-                        <ul class="product-features">
-                            <li><i class="fas fa-check"></i> HD Ready</li>
-                            <li><i class="fas fa-check"></i> Smart Features</li>
-                            <li><i class="fas fa-check"></i> 6 Months Warranty</li>
-                            <li><i class="fas fa-check"></i> Remote Included</li>
-                        </ul>
-                        <a href="https://wa.me/919789967161?text=Hi,%20I'm%20interested%20in%20LED%20Smart%20TV%2032-inch" class="btn" style="width: 100%;">
-                            <i class="fab fa-whatsapp"></i>
-                            Inquire Now
-                        </a>
-                    </div>
+            <h2 class="section-title animate-on-scroll">Available Products</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded dynamically from dashboard -->
+                <!-- Empty state message -->
+                <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--gray);">
+                    <i class="fas fa-box-open" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                    <h3 style="margin-bottom: 0.5rem;">No Products Available</h3>
+                    <p>Products will be added from the admin dashboard. Please check back later.</p>
                 </div>
             </div>
         </div>
@@ -1026,22 +974,22 @@
     <!-- Multiple Ways to Purchase Section -->
     <section class="section">
         <div class="container">
-            <div class="purchase-section">
+            <div class="purchase-section animate-on-scroll">
                 <h2 class="purchase-title">Multiple Ways to Purchase</h2>
                 <div class="purchase-options">
-                    <div class="purchase-option">
+                    <div class="purchase-option animate-on-scroll">
                         <i class="fas fa-store option-icon"></i>
                         <h3 class="option-title">Visit Our Store</h3>
                         <p class="option-desc">Come to our service center to see the products in person and get expert advice from our team</p>
                         <a href="contact.html" class="btn">Get Directions</a>
                     </div>
-                    <div class="purchase-option">
+                    <div class="purchase-option animate-on-scroll">
                         <i class="fab fa-whatsapp option-icon"></i>
                         <h3 class="option-title">WhatsApp Inquiry</h3>
                         <p class="option-desc">Send us photos and details on WhatsApp for quick response and instant booking confirmation</p>
                         <a href="https://wa.me/919789967161" class="btn btn-secondary">Message Now</a>
                     </div>
-                    <div class="purchase-option">
+                    <div class="purchase-option animate-on-scroll">
                         <i class="fas fa-phone option-icon"></i>
                         <h3 class="option-title">Call Directly</h3>
                         <p class="option-desc">Speak with our sales team for personalized assistance, pricing, and immediate support</p>
@@ -1052,100 +1000,61 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Minimal Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>SRI ELECTRONICS SERVICE</h3>
-                    <p>Puducherry's No.1 Appliance Service Company with over 10 years of experience. We provide reliable and affordable solutions for all your home appliances.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
-                        <li><a href="sales.html"><i class="fas fa-chevron-right"></i> Sales</a></li>
-                        <li><a href="gallery.html"><i class="fas fa-chevron-right"></i> Gallery</a></li>
-                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Our Services</h3>
-                    <ul class="footer-links">
-                        <li><a href="services.html#ac-service"><i class="fas fa-chevron-right"></i> AC Service</a></li>
-                        <li><a href="services.html#refrigerator-service"><i class="fas fa-chevron-right"></i> Refrigerator Repair</a></li>
-                        <li><a href="services.html#washing-machine-service"><i class="fas fa-chevron-right"></i> Washing Machine Repair</a></li>
-                        <li><a href="services.html#tv-service"><i class="fas fa-chevron-right"></i> TV Service</a></li>
-                        <li><a href="services.html#water-heater-service"><i class="fas fa-chevron-right"></i> Water Heater Service</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Info</h3>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt contact-icon"></i>
-                            <span>Kattukarai road, Jayam Nagar, Thirukkanur, Puducherry</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone contact-icon"></i>
-                            <span>9789967161</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope contact-icon"></i>
-                            <span>srielectronicspuducherry@gmail.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-clock contact-icon"></i>
-                            <span>Mon-Sun: 8:00 AM - 8:00 PM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="copyright">
                 <p>&copy; 2025 SRI ELECTRONICS SERVICE. All Rights Reserved. | Puducherry & Villupuram</p>
-                <p style="margin-top: 0.5rem; font-size: 0.8rem;"><a href="admin-login.html" style="color: #6b7280; text-decoration: none;">Admin Login</a></p>
+                <p style="margin-top: 0.5rem;"><a href="admin-login.html">Admin Login</a></p>
             </div>
         </div>
     </footer>
 
-    <!-- Floating Action Buttons -->
+    <!-- Floating Action Buttons - ON RIGHT SIDE -->
     <div class="floating-buttons">
-        <a href="https://wa.me/919789967161" class="floating-btn whatsapp-btn">
+        <a href="https://wa.me/919789967161" class="floating-btn whatsapp-btn" data-tooltip="WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
-        <a href="tel:9789967161" class="floating-btn call-btn">
+        <a href="tel:9789967161" class="floating-btn call-btn" data-tooltip="Call Now">
             <i class="fas fa-phone"></i>
         </a>
-        <a href="contact.html" class="floating-btn book-btn">
+        <a href="contact.html" class="floating-btn book-btn" data-tooltip="Quick Contact">
             <i class="fas fa-calendar-alt"></i>
         </a>
     </div>
 
     <script>
         // Mobile Menu Toggle
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            document.getElementById('navMenu').classList.toggle('active');
-        });
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const navMenu = document.getElementById('navMenu');
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            
-            if (!navMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
-                navMenu.classList.remove('active');
-            }
-        });
+        if (mobileMenuBtn && navMenu) {
+            mobileMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navMenu.classList.toggle('active');
+                mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
 
-        // Modern Filter Functionality
+            // Close menu when clicking outside
+            document.addEventListener('click', (event) => {
+                if (!navMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+        }
+
+        // Filter Functionality
         document.addEventListener('DOMContentLoaded', function() {
             const categoryFilter = document.getElementById('categoryFilter');
             const conditionFilter = document.getElementById('conditionFilter');
@@ -1154,7 +1063,7 @@
             const sortFilter = document.getElementById('sortFilter');
             const applyFilters = document.getElementById('applyFilters');
             const resetFilters = document.getElementById('resetFilters');
-            const productCards = document.querySelectorAll('.product-card');
+            const productsGrid = document.getElementById('productsGrid');
 
             function filterProducts() {
                 const category = categoryFilter.value;
@@ -1163,65 +1072,22 @@
                 const max = maxPrice.value ? parseInt(maxPrice.value) : Infinity;
                 const sort = sortFilter.value;
 
-                let filteredProducts = Array.from(productCards).filter(card => {
-                    const cardCategory = card.getAttribute('data-category');
-                    const cardCondition = card.getAttribute('data-condition');
-                    const cardPrice = parseInt(card.getAttribute('data-price'));
-
-                    // Category filter
-                    if (category !== 'all' && cardCategory !== category) return false;
-                    
-                    // Condition filter
-                    if (condition !== 'all' && cardCondition !== condition) return false;
-                    
-                    // Price filter
-                    if (cardPrice < min || cardPrice > max) return false;
-                    
-                    return true;
-                });
-
-                // Sort products
-                switch(sort) {
-                    case 'price-low':
-                        filteredProducts.sort((a, b) => parseInt(a.getAttribute('data-price')) - parseInt(b.getAttribute('data-price')));
-                        break;
-                    case 'price-high':
-                        filteredProducts.sort((a, b) => parseInt(b.getAttribute('data-price')) - parseInt(a.getAttribute('data-price')));
-                        break;
-                    case 'newest':
-                        // For demo, we'll sort by price as placeholder
-                        filteredProducts.sort((a, b) => parseInt(b.getAttribute('data-price')) - parseInt(a.getAttribute('data-price')));
-                        break;
-                    case 'popular':
-                        // For demo, we'll sort by price as placeholder
-                        filteredProducts.sort((a, b) => parseInt(a.getAttribute('data-price')) - parseInt(b.getAttribute('data-price')));
-                        break;
-                }
-
-                // Hide all products first
-                productCards.forEach(card => {
-                    card.style.display = 'none';
-                });
-
-                // Show filtered products
-                filteredProducts.forEach(card => {
-                    card.style.display = 'block';
-                });
-
-                // Add animation to appearing cards
+                // Note: Products will be loaded dynamically from dashboard
+                // This is just a template for filter functionality
+                console.log('Filter applied:', { category, condition, min, max, sort });
+                
+                // Show message that products will be loaded from dashboard
+                productsGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--gray);">
+                        <i class="fas fa-filter" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <h3 style="margin-bottom: 0.5rem;">Filter Applied</h3>
+                        <p>Products matching your filters will be displayed from the admin dashboard.</p>
+                    </div>
+                `;
+                
+                // Trigger animations
                 setTimeout(() => {
-                    filteredProducts.forEach((card, index) => {
-                        setTimeout(() => {
-                            card.style.opacity = '0';
-                            card.style.transform = 'translateY(20px)';
-                            card.style.display = 'block';
-                            setTimeout(() => {
-                                card.style.transition = 'all 0.5s ease';
-                                card.style.opacity = '1';
-                                card.style.transform = 'translateY(0)';
-                            }, 50);
-                        }, index * 100);
-                    });
+                    animateOnScroll();
                 }, 100);
             }
 
@@ -1232,11 +1098,14 @@
                 maxPrice.value = '';
                 sortFilter.value = 'featured';
                 
-                productCards.forEach(card => {
-                    card.style.display = 'block';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                });
+                // Reset to empty state
+                productsGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--gray);">
+                        <i class="fas fa-box-open" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <h3 style="margin-bottom: 0.5rem;">No Products Available</h3>
+                        <p>Products will be added from the admin dashboard. Please check back later.</p>
+                    </div>
+                `;
             }
 
             applyFilters.addEventListener('click', filterProducts);
@@ -1250,6 +1119,53 @@
                     }
                 });
             });
+        });
+
+        // Scroll Animation Function
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-on-scroll, .section-title, .filter-section, .purchase-section, .purchase-option');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Initialize animations on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial check for elements in view
+            animateOnScroll();
+            
+            // Trigger animations for purchase options
+            const purchaseOptions = document.querySelectorAll('.purchase-option');
+            setTimeout(() => {
+                purchaseOptions.forEach(option => {
+                    option.classList.add('visible');
+                });
+            }, 300);
+        });
+
+        // Listen for scroll events
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Fix for iOS zoom on input focus
+        document.addEventListener('DOMContentLoaded', function() {
+            if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+                document.addEventListener('focus', function(event) {
+                    if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA' || event.target.tagName === 'SELECT') {
+                        setTimeout(function() {
+                            event.target.scrollIntoView({
+                                block: 'center',
+                                behavior: 'smooth'
+                            });
+                        }, 300);
+                    }
+                }, true);
+            }
         });
     </script>
 </body>

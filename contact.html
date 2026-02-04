@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Contact Us - SRI ELECTRONICS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <style>
         :root {
             --primary: #2563eb;
@@ -28,12 +31,19 @@
             box-sizing: border-box;
         }
 
+        html {
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: var(--dark);
             background-color: var(--light);
             overflow-x: hidden;
+            width: 100%;
+            position: relative;
         }
 
         .container {
@@ -50,41 +60,47 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            width: 100%;
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 0.8rem 0;
+            width: 100%;
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            flex-shrink: 1;
+            min-width: 0;
         }
 
         .logo-icon {
             color: var(--primary);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
+            flex-shrink: 0;
         }
 
         .logo-text {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: var(--primary);
+            line-height: 1.2;
         }
 
         .tagline {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: var(--gray);
-            margin-top: -5px;
+            margin-top: 2px;
         }
 
         .nav-menu {
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
         .nav-link {
@@ -93,13 +109,12 @@
             font-weight: 500;
             transition: var(--transition);
             position: relative;
-            padding: 0.5rem 0;
+            padding: 0.4rem 0.6rem;
+            font-size: 0.9rem;
+            white-space: nowrap;
         }
 
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
+        .nav-link:hover,
         .nav-link.active {
             color: var(--primary);
         }
@@ -107,44 +122,55 @@
         .nav-link.active::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
+            bottom: -2px;
+            left: 0.6rem;
+            right: 0.6rem;
             height: 2px;
             background-color: var(--primary);
+            border-radius: 1px;
         }
 
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             color: var(--dark);
             cursor: pointer;
+            width: 40px;
+            height: 40px;
+            padding: 0.35rem;
+            align-items: center;
+            justify-content: center;
+            z-index: 101;
         }
 
         /* Page Header */
         .page-header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 3rem 0;
+            padding: 2rem 0;
             text-align: center;
+            width: 100%;
         }
 
         .page-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
         }
 
         .page-header p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             max-width: 800px;
             margin: 0 auto;
+            padding: 0 1rem;
+            line-height: 1.5;
         }
 
         .btn {
             display: inline-block;
-            padding: 0.75rem 1.5rem;
+            padding: 0.7rem 1.2rem;
             background-color: var(--primary);
             color: white;
             border: none;
@@ -155,6 +181,7 @@
             transition: var(--transition);
             box-shadow: var(--shadow);
             text-align: center;
+            font-size: 0.95rem;
         }
 
         .btn:hover {
@@ -172,95 +199,121 @@
 
         /* Contact Section */
         .section {
-            padding: 5rem 0;
+            padding: 3rem 0;
+            width: 100%;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
             position: relative;
             font-weight: 700;
+            line-height: 1.3;
         }
 
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
+            width: 60px;
+            height: 3px;
             background-color: var(--primary);
-            border-radius: 2px;
+            border-radius: 1.5px;
         }
 
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 2rem;
         }
 
         .contact-info {
             background: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
         }
 
         .contact-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
             color: var(--primary);
+            line-height: 1.3;
         }
 
         .contact-item {
             display: flex;
             align-items: flex-start;
             gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding: 1rem;
+            margin-bottom: 1.2rem;
+            padding: 0.8rem;
             background: var(--light);
             border-radius: var(--radius);
         }
 
         .contact-icon {
             color: var(--primary);
-            font-size: 1.5rem;
-            margin-top: 0.25rem;
+            font-size: 1.2rem;
+            margin-top: 0.1rem;
+            flex-shrink: 0;
         }
 
         .contact-details h4 {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
             font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .contact-details p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .contact-details small {
+            font-size: 0.8rem;
+            color: var(--gray);
+            display: block;
+            margin-top: 0.2rem;
         }
 
         .contact-form {
             background: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
         }
 
+        .contact-form h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.7rem;
             border: 1px solid var(--light-gray);
             border-radius: var(--radius);
             font-family: 'Poppins', sans-serif;
             transition: var(--transition);
+            font-size: 0.9rem;
         }
 
         .form-group input:focus,
@@ -272,7 +325,7 @@
         }
 
         .form-group textarea {
-            min-height: 120px;
+            min-height: 100px;
             resize: vertical;
         }
 
@@ -282,208 +335,274 @@
             gap: 1rem;
         }
 
-        /* Notification Styles */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem 1.5rem;
+        /* Form Status Message */
+        .form-status {
+            margin-top: 1rem;
+            padding: 0.7rem;
             border-radius: var(--radius);
-            color: white;
-            font-weight: 500;
-            box-shadow: var(--shadow);
-            z-index: 1000;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            font-size: 0.9rem;
         }
 
-        .notification.show {
-            transform: translateX(0);
+        .form-status.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+            display: block;
         }
 
-        .notification.success {
-            background-color: var(--secondary);
-        }
-
-        .notification.error {
-            background-color: var(--sale);
-        }
-
-        /* Map Section */
-        .map-section {
-            background: white;
-            padding: 2rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            margin-top: 2rem;
-        }
-
-        .map-placeholder {
-            background: var(--light);
-            height: 300px;
-            border-radius: var(--radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .map-icon {
-            font-size: 3rem;
-            color: var(--primary);
+        .form-status.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--sale);
+            border: 1px solid var(--sale);
+            display: block;
         }
 
         /* Service Areas */
         .areas-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1.2rem;
         }
 
         .area-item {
             background: var(--light);
-            padding: 1rem;
+            padding: 0.7rem 0.5rem;
             border-radius: var(--radius);
             text-align: center;
             font-weight: 500;
+            font-size: 0.85rem;
         }
 
-       /* Footer Styles */
-footer {
-    background-color: var(--dark);
-    color: white;
-    padding: 4rem 0 1rem;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-column h3 {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-}
-
-.footer-column h3::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 40px;
-    height: 2px;
-    background-color: var(--primary);
-}
-
-.footer-links {
-    list-style: none;
-}
-
-.footer-links li {
-    margin-bottom: 0.75rem;
-}
-
-.footer-links a {
-    color: #d1d5db;
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-.footer-column p,
-.footer-column span,
-.footer-column small {
-    color: #d1d5db;
-}
-
-.footer-links a:hover {
-    color: white;
-}
-
-/* Footer Contact Info - Updated to remove white container */
-footer .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-footer .contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 0;
-    background: transparent;
-}
-
-footer .contact-icon {
-    color: var(--primary);
-    font-size: 1.2rem;
-    margin-top: 0.2rem;
-    flex-shrink: 0;
-}
-
-footer .contact-item span {
-    color: #d1d5db;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    line-height: 1.4;
-}
-
-.social-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.social-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: #374151;
-    border-radius: 50%;
-    color: white;
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-.social-link:hover {
-    background-color: var(--primary);
-}
-
-.copyright {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid #374151;
-    color: #9ca3af;
-    font-size: 0.9rem;
+        /* Map Section */
+        .map-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
         }
 
-/* === FIX: Remove white box from footer Contact Info (Contact page only) === */
-footer .contact-info {
-    background: transparent !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-}
-footer .contact-item {
-    margin-bottom: 0.75rem;
-}
+        .map-section h3 {
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+            text-align: center;
+            font-size: 1.3rem;
+        }
 
+        /* Map embed styling */
+        .map-embed {
+            position: relative;
+            width: 100%;
+            padding-top: 56%; /* 16:9 ratio */
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+            background: #e5e7eb;
+        }
 
-        /* Floating Action Buttons */
-        .floating-buttons {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
+        .map-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            pointer-events: none;
+        }
+
+        .map-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 0.5rem;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.05) 100%);
+        }
+
+        .map-overlay a {
+            color: white;
+            background: rgba(0,0,0,0.55);
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: inline-flex;
+            gap: 0.4rem;
+            align-items: center;
+        }
+
+        /* Quick Contact Cards */
+        .quick-contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-card i {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+
+        .contact-card p {
+            margin-bottom: 1.2rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            color: white;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-column p {
+            color: #d1d5db;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Footer Contact Info - FIXED: No white background */
+        footer .contact-info {
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            background: transparent !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
+
+        footer .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            padding: 0 !important;
+            background: transparent !important;
+            margin-bottom: 0.8rem;
+        }
+
+        footer .contact-icon {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-top: 0.1rem;
+            flex-shrink: 0;
+        }
+
+        footer .contact-item span {
+            color: #d1d5db;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: #374151;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Floating Action Buttons - MOVED TO LEFT */
+        .floating-buttons {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
             z-index: 99;
         }
 
@@ -491,14 +610,15 @@ footer .contact-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             color: white;
-            font-size: 1.5rem;
-            box-shadow: var(--shadow);
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             transition: var(--transition);
             text-decoration: none;
+            position: relative;
         }
 
         .floating-btn:hover {
@@ -517,100 +637,368 @@ footer .contact-item {
             background-color: var(--secondary);
         }
 
-        /* Responsive Styles */
-        @media (max-width: 1024px) {
-            .container {
-                padding: 0 1.5rem;
-            }
+        /* Tooltip for floating buttons */
+        .floating-btn::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 100;
         }
 
+        .floating-btn:hover::after {
+            opacity: 1;
+            visibility: visible;
+            left: 65px;
+        }
+
+        /* Desktop Order - Form First, Contact Info Second */
+        .desktop-order-1 {
+            order: 1;
+        }
+        
+        .desktop-order-2 {
+            order: 2;
+        }
+
+        /* Responsive Styles */
         @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+                width: 100%;
+                position: relative;
+            }
+            
+            .container {
+                padding: 0 1rem;
+                width: 100%;
+                max-width: 100%;
+            }
+            
             .header-container {
-                flex-wrap: wrap;
-                padding: 1rem;
+                padding: 0.7rem 0;
             }
             
             .logo {
-                flex: 1;
-                min-width: 200px;
+                min-width: 0;
             }
             
             .logo-text {
-                font-size: 1.2rem;
-            }
-            
-            .nav-menu {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                margin-top: 1rem;
-                gap: 0.5rem;
-                padding: 1rem 0;
-                background: white;
-                border-top: 1px solid var(--light-gray);
-            }
-            
-            .nav-menu.active {
-                display: flex;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .page-header {
-                padding: 2rem 1rem;
-            }
-            
-            .page-header h1 {
-                font-size: 2rem;
-            }
-            
-            .page-header p {
                 font-size: 1rem;
             }
             
+            .tagline {
+                font-size: 0.65rem;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: white;
+                backdrop-filter: none;
+                flex-direction: column;
+                margin-top: 0;
+                gap: 0;
+                padding: 4rem 1.5rem 1.5rem;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                overflow-y: auto;
+                z-index: 100;
+                transition: right 0.3s ease;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .nav-link {
+                padding: 0.8rem 0;
+                font-size: 1rem;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                width: 100%;
+            }
+            
+            .nav-link.active::after {
+                left: 0;
+                right: auto;
+                width: 4px;
+                height: 100%;
+                bottom: 0;
+                background-color: var(--primary);
+            }
+            
+            .page-header {
+                padding: 1.5rem 0;
+            }
+            
+            .page-header h1 {
+                font-size: 1.5rem;
+                padding: 0 1rem;
+            }
+            
+            .page-header p {
+                font-size: 0.9rem;
+                padding: 0 1rem;
+            }
+            
+            .section {
+                padding: 2rem 0;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+                padding: 0 1rem;
+            }
+            
+            /* MOBILE REORDER: Form comes first, then contact info */
             .contact-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 1.5rem;
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .contact-form {
+                order: 1; /* Form comes first */
+                margin-bottom: 1.5rem;
+            }
+            
+            .contact-info {
+                order: 2; /* Contact info comes after form */
+            }
+            
+            .contact-info,
+            .contact-form {
+                padding: 1.2rem;
+            }
+            
+            .contact-info h3,
+            .contact-form h3 {
+                font-size: 1.2rem;
             }
             
             .form-row {
                 grid-template-columns: 1fr;
+                gap: 1rem;
             }
             
             .areas-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+            
+            .quick-contact-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 0 0.5rem;
+            }
+            
+            .contact-card {
+                padding: 1.2rem;
+            }
+            
+            .contact-card i {
+                font-size: 2rem;
+            }
+            
+            .contact-card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .map-section {
+                padding: 1.2rem;
+                margin-top: 1.5rem;
+            }
+            
+            .map-section h3 {
+                font-size: 1.2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+            
+            .footer-column {
+                margin-bottom: 1rem;
+            }
+            
+            .footer-column h3 {
+                font-size: 1.1rem;
             }
             
             .floating-buttons {
                 bottom: 1rem;
-                right: 1rem;
+                left: 1rem;
             }
             
             .floating-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+            
+            /* Hide tooltips on mobile */
+            .floating-btn::after {
+                display: none;
+            }
+            
+            /* Prevent zoom on input focus */
+            input, textarea, select {
+                font-size: 16px !important;
+            }
+        }
+
+        @media (min-width: 769px) {
+            /* Desktop Order - Contact Info First, Form Second */
+            .contact-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .contact-info {
+                order: 1; /* Contact info first on desktop */
+            }
+            
+            .contact-form {
+                order: 2; /* Form second on desktop */
+            }
+            
+            .mobile-menu-btn {
+                display: none !important;
+            }
+            
+            .nav-menu {
+                position: static !important;
+                right: auto !important;
+                width: auto !important;
+                max-width: none !important;
+                height: auto !important;
+                background: none !important;
+                backdrop-filter: none !important;
+                border-left: none !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                flex-direction: row !important;
             }
         }
 
         @media (max-width: 480px) {
             .container {
-                padding: 0 1rem;
+                padding: 0 0.8rem;
+            }
+            
+            .logo-text {
+                font-size: 0.9rem;
+            }
+            
+            .tagline {
+                font-size: 0.6rem;
             }
             
             .page-header h1 {
-                font-size: 1.6rem;
+                font-size: 1.3rem;
             }
             
-            .section {
-                padding: 2.5rem 0;
+            .page-header p {
+                font-size: 0.85rem;
             }
             
             .section-title {
-                font-size: 1.6rem;
-                margin-bottom: 2rem;
+                font-size: 1.3rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .contact-info,
+            .contact-form {
+                padding: 1rem;
+            }
+            
+            .areas-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            
+            .area-item {
+                font-size: 0.8rem;
+                padding: 0.6rem 0.4rem;
+            }
+            
+            .contact-item {
+                padding: 0.7rem;
+                margin-bottom: 1rem;
+            }
+            
+            .floating-buttons {
+                bottom: 0.8rem;
+                left: 0.8rem;
+                gap: 0.6rem;
+            }
+            
+            .floating-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Prevent horizontal scroll and zooming */
+        @media (max-width: 767px) {
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+                position: relative;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .container {
+                overflow-x: hidden;
+            }
+            
+            /* Fix for iOS zoom on input focus */
+            input[type="text"],
+            input[type="tel"],
+            input[type="email"],
+            textarea,
+            select {
+                font-size: 16px !important;
+                max-height: 3em;
+            }
+            
+            /* Ensure tap targets are properly sized */
+            .btn, .nav-link, .floating-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
+
+        /* Tablet styles */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .contact-grid {
+                gap: 1.5rem;
             }
             
             .contact-info,
@@ -618,9 +1006,33 @@ footer .contact-item {
                 padding: 1.5rem;
             }
             
-            .areas-grid {
-                grid-template-columns: 1fr;
+            .floating-buttons {
+                left: 1.5rem;
+                bottom: 1.5rem;
             }
+        }
+
+        /* Desktop styles */
+        @media (min-width: 1025px) {
+            .nav-menu {
+                gap: 1.5rem;
+            }
+            
+            .nav-link {
+                font-size: 0.95rem;
+            }
+            
+            .floating-buttons {
+                left: 2rem;
+                bottom: 2rem;
+            }
+        }
+
+        /* Ensure no white space issues */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
         }
     </style>
 </head>
@@ -635,7 +1047,7 @@ footer .contact-item {
                     <div class="tagline">Puducherry's No.1 Appliance Service Company</div>
                 </div>
             </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
             <nav class="nav-menu" id="navMenu">
@@ -662,7 +1074,72 @@ footer .contact-item {
         <div class="container">
             <h2 class="section-title">Get In Touch</h2>
             <div class="contact-grid">
-                <!-- Contact Information -->
+                <!-- Contact Form - First on Mobile, Second on Desktop -->
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form id="contactForm" novalidate>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Your Name *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Service Required *</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a service</option>
+                                <option value="ac-service">AC Service</option>
+                                <option value="refrigerator">Refrigerator Repair</option>
+                                <option value="washing-machine">Washing Machine Repair</option>
+                                <option value="tv">TV Service</option>
+                                <option value="water-heater">Water Heater Service</option>
+                                <option value="ro">RO Service</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Address *</label>
+                            <textarea id="address" name="address" placeholder="Enter your complete address" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Describe your appliance problem or requirement"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn" id="contactSubmit" style="width: 100%;">Send Message</button>
+                        
+                        <!-- Form Status Message -->
+                        <div id="formStatus" class="form-status"></div>
+                        
+                        <!-- Alternative Contact Methods -->
+                        <div style="margin-top: 1rem; text-align: center;">
+                            <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.8rem;">Or contact us directly via:</p>
+                            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                                <a href="https://wa.me/919789967161" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                                <a href="tel:9789967161" class="btn" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                                    <i class="fas fa-phone"></i> Call Now
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Contact Information - Second on Mobile, First on Desktop -->
                 <div class="contact-info">
                     <h3>Contact Information</h3>
                     
@@ -696,7 +1173,7 @@ footer .contact-item {
                         <div class="contact-details">
                             <h4>Working Hours</h4>
                             <p>Monday - Sunday: 8:00 AM - 8:00 PM</p>
-                            <p>Emergency Service: 24/7 Available</p>
+                            <small>Emergency Service: 24/7 Available</small>
                         </div>
                     </div>
 
@@ -712,77 +1189,20 @@ footer .contact-item {
                         </div>
                     </div>
                 </div>
-
-                <!-- Contact Form -->
-                <div class="contact-form">
-                    <h3>Send Us a Message</h3>
-                    <form id="contactForm" novalidate>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Your Name *</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number *</label>
-                                <input type="tel" id="phone" name="phone" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="service">Service Required</label>
-                            <select id="service" name="service" required>
-                                <option value="">Select a service</option>
-                                <option value="ac-service">AC Service</option>
-                                <option value="refrigerator">Refrigerator Repair</option>
-                                <option value="washing-machine">Washing Machine Repair</option>
-                                <option value="tv">TV Service</option>
-                                <option value="water-heater">Water Heater Service</option>
-                                <option value="ro">RO Service</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="address">Address</label>
-                            <textarea id="address" name="address" placeholder="Enter your complete address" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" placeholder="Describe your appliance problem or requirement"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn" id="contactSubmit" style="width: 100%;">Send Message</button>
-                        
-                        <!-- Alternative: WhatsApp Method -->
-                        <div style="margin-top: 1rem; text-align: center;">
-                            <p style="color: var(--gray); font-size: 0.9rem;">Or contact us directly via:</p>
-                            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 0.5rem;">
-                                <a href="https://wa.me/919789967161" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
-                                    <i class="fab fa-whatsapp"></i> WhatsApp
-                                </a>
-                                <a href="tel:9789967161" class="btn" style="padding: 0.5rem 1rem;">
-                                    <i class="fas fa-phone"></i> Call Now
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
             </div>
 
             <!-- Map Section -->
             <div class="map-section">
-                <h3 style="margin-bottom: 1.5rem; color: var(--primary);">Find Us</h3>
-                <div class="map-placeholder">
-                    <i class="fas fa-map-marked-alt map-icon"></i>
-                    <p>Kattukarai road, Jayam Nagar, Thirukkanur, Puducherry</p>
-                    <a href="https://maps.google.com/?q=Kattukarai+road,+Jayam+Nagar,+Thirukkanur,+Puducherry" class="btn" rel="noopener noreferrer">Open in Google Maps</a>
+                <h3>Find Us</h3>
+                <div class="map-embed" aria-hidden="false">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d856.435817882388!2d79.63222252582776!3d11.985712969182002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a535bf32037010f%3A0xb7310fcea9502e69!2sThirukkanur%2C%20Tamil%20Nadu%20605501!5e1!3m2!1sen!2sin!4v1769748524204!5m2!1sen!2sin" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Sri Electronics location map"></iframe>
+                    <!-- Overlay anchor captures clicks and opens the location in Google Maps -->
+                    <div class="map-overlay">
+                        <a href="https://www.google.com/maps/search/?api=1&query=11.985712969182002,79.63222252582776" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Open in Google Maps
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -792,30 +1212,30 @@ footer .contact-item {
     <section class="section" style="background-color: var(--light);">
         <div class="container">
             <h2 class="section-title">Quick Contact Options</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-                <div style="text-align: center; padding: 2rem; background: white; border-radius: var(--radius); box-shadow: var(--shadow);">
-                    <i class="fas fa-phone" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+            <div class="quick-contact-grid">
+                <div class="contact-card">
+                    <i class="fas fa-phone" style="color: var(--primary);"></i>
                     <h3>Call Us</h3>
-                    <p style="margin-bottom: 1.5rem;">Speak directly with our service team</p>
+                    <p>Speak directly with our service team</p>
                     <a href="tel:9789967161" class="btn">Call Now</a>
                 </div>
-                <div style="text-align: center; padding: 2rem; background: white; border-radius: var(--radius); box-shadow: var(--shadow);">
-                    <i class="fab fa-whatsapp" style="font-size: 3rem; color: #25d366; margin-bottom: 1rem;"></i>
+                <div class="contact-card">
+                    <i class="fab fa-whatsapp" style="color: #25d366;"></i>
                     <h3>WhatsApp</h3>
-                    <p style="margin-bottom: 1.5rem;">Send us a message on WhatsApp</p>
+                    <p>Send us a message on WhatsApp</p>
                     <a href="https://wa.me/919789967161" class="btn btn-secondary">Message Now</a>
                 </div>
-                <div style="text-align: center; padding: 2rem; background: white; border-radius: var(--radius); box-shadow: var(--shadow);">
-                    <i class="fas fa-store" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <div class="contact-card">
+                    <i class="fas fa-store" style="color: var(--accent);"></i>
                     <h3>Visit Us</h3>
-                    <p style="margin-bottom: 1.5rem;">Come to our service center</p>
-                    <a href="#map" class="btn btn-accent">Get Directions</a>
+                    <p>Come to our service center</p>
+                    <a href="#map" class="btn" style="background-color: var(--accent);">Get Directions</a>
                 </div>
             </div>
         </div>
     </section>
 
-      <!-- Footer -->
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -823,32 +1243,11 @@ footer .contact-item {
                     <h3>SRI ELECTRONICS SERVICE</h3>
                     <p>Puducherry's No.1 Appliance Service Company with over 10 years of experience. We provide reliable and affordable solutions for all your home appliances.</p>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                     </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="sales.html">Sales</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Our Services</h3>
-                    <ul class="footer-links">
-                        <li><a href="services.html#ac-service">AC Service</a></li>
-                        <li><a href="services.html#refrigerator-service">Refrigerator Repair</a></li>
-                        <li><a href="services.html#washing-machine-service">Washing Machine Repair</a></li>
-                        <li><a href="services.html#tv-service">TV Service</a></li>
-                        <li><a href="services.html#water-heater-service">Water Heater Service</a></li>
-                    </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Contact Info</h3>
@@ -871,6 +1270,17 @@ footer .contact-item {
                         </div>
                     </div>
                 </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <div class="footer-links">
+                        <p><a href="index.html">Home</a></p>
+                        <p><a href="services.html">Services</a></p>
+                        <p><a href="sales.html">Sales</a></p>
+                        <p><a href="gallery.html">Gallery</a></p>
+                        <p><a href="about.html">About Us</a></p>
+                        <p><a href="contact.html">Contact</a></p>
+                    </div>
+                </div>
             </div>
             <div class="copyright">
                 <p>&copy; 2025 SRI ELECTRONICS SERVICE. All Rights Reserved. | Puducherry & Villupuram</p>
@@ -878,43 +1288,196 @@ footer .contact-item {
             </div>
         </div>
     </footer>
-    <!-- Floating Action Buttons -->
+    
+    <!-- Floating Action Buttons - MOVED TO LEFT -->
     <div class="floating-buttons">
-        <a href="https://wa.me/919789967161" class="floating-btn whatsapp-btn">
+        <a href="https://wa.me/919789967161" class="floating-btn whatsapp-btn" data-tooltip="WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
-        <a href="tel:9789967161" class="floating-btn call-btn">
+        <a href="tel:9789967161" class="floating-btn call-btn" data-tooltip="Call Now">
             <i class="fas fa-phone"></i>
         </a>
-        <a href="contact.html" class="floating-btn book-btn">
+        <a href="#contactForm" class="floating-btn book-btn" data-tooltip="Quick Contact">
             <i class="fas fa-calendar-alt"></i>
         </a>
     </div>
 
     <script>
+        // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.getElementById('navMenu');
 
         if (mobileMenuBtn && navMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 navMenu.classList.toggle('active');
+                mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
             });
 
+            // Close menu when clicking outside
             document.addEventListener('click', (event) => {
                 if (!navMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
                     navMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
                 }
             });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
         }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
-        (function () {
-            if (window.emailjs) {
-                emailjs.init('YOUR_EMAILJS_PUBLIC_KEY');
+
+        // WhatsApp Form Submission
+        $(document).ready(function() {
+            $("#contactForm").on("submit", function (e) {
+                e.preventDefault();
+
+                // Get form values
+                const name = $("#name").val().trim();
+                const phone = $("#phone").val().trim();
+                const email = $("#email").val().trim();
+                const service = $("#service").val();
+                const address = $("#address").val().trim();
+                const message = $("#message").val().trim();
+
+                // Basic validation
+                if (!name || !phone || !service || !address) {
+                    showStatus("Please fill in all required fields (*)", "error");
+                    return;
+                }
+
+                // Phone validation
+                const phoneRegex = /^[0-9]{10}$/;
+                if (!phoneRegex.test(phone)) {
+                    showStatus("Please enter a valid 10-digit phone number", "error");
+                    return;
+                }
+
+                // Email validation (optional)
+                if (email && !validateEmail(email)) {
+                    showStatus("Please enter a valid email address", "error");
+                    return;
+                }
+
+                // Disable submit button and show loading
+                const submitBtn = $("#contactSubmit");
+                const originalText = submitBtn.html();
+                submitBtn.html('<i class="fas fa-spinner fa-spin"></i> Sending...');
+                submitBtn.prop("disabled", true);
+
+                // Create WhatsApp message
+                const whatsappMessage = 
+`📌 New Service Booking - SRI ELECTRONICS
+
+👤 Name: ${name}
+📞 Phone: ${phone}
+📧 Email: ${email || "Not provided"}
+🔧 Service: ${$("#service option:selected").text()}
+🏠 Address: ${address}
+📝 Message: ${message || "No additional message"}
+
+📍 Submitted via Website Contact Form`;
+
+                // Send via UltraMsg API
+                $.ajax({
+                    url: "https://api.ultramsg.com/instance160889/messages/chat",
+                    method: "POST",
+                    data: {
+                        token: "vtqjpe57jxs7g2w9",
+                        to: "919789967161",
+                        body: whatsappMessage
+                    },
+                    success: function (response) {
+                        console.log("✅ WhatsApp message sent successfully:", response);
+                        
+                        // Show success message
+                        showStatus("✅ Thank you! Your message has been sent successfully. We'll contact you shortly.", "success");
+                        
+                        // Reset form
+                        $("#contactForm")[0].reset();
+                        
+                        // Re-enable button
+                        submitBtn.html(originalText);
+                        submitBtn.prop("disabled", false);
+                        
+                        // Scroll to status message
+                        $('html, body').animate({
+                            scrollTop: $("#formStatus").offset().top - 100
+                        }, 500);
+                    },
+                    error: function (err) {
+                        console.error("❌ Failed to send WhatsApp message:", err);
+                        
+                        // Show error message
+                        showStatus("❌ Failed to send message. Please try again or contact us directly via WhatsApp/Call.", "error");
+                        
+                        // Re-enable button
+                        submitBtn.html(originalText);
+                        submitBtn.prop("disabled", false);
+                    }
+                });
+            });
+
+            // Helper function to show status messages
+            function showStatus(message, type) {
+                const statusDiv = $("#formStatus");
+                statusDiv.removeClass("success error").addClass(type).text(message).fadeIn();
+                
+                // Auto-hide after 5 seconds for error, 8 seconds for success
+                setTimeout(() => {
+                    statusDiv.fadeOut();
+                }, type === "success" ? 8000 : 5000);
             }
-        })();
+
+            // Email validation function
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+
+            // Add real-time validation
+            $("#phone").on("input", function() {
+                const phone = $(this).val().replace(/\D/g, "");
+                $(this).val(phone);
+                
+                if (phone.length > 10) {
+                    $(this).val(phone.substring(0, 10));
+                }
+            });
+
+            // Smooth scroll for anchor links
+            $('a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                const target = $(this.getAttribute('href'));
+                if(target.length) {
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top - 80
+                    }, 800);
+                }
+            });
+        });
+
+        // Fix for iOS zoom on input focus
+        document.addEventListener('DOMContentLoaded', function() {
+            if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+                document.addEventListener('focus', function(event) {
+                    if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA' || event.target.tagName === 'SELECT') {
+                        setTimeout(function() {
+                            event.target.scrollIntoView({
+                                block: 'center',
+                                behavior: 'smooth'
+                            });
+                        }, 300);
+                    }
+                }, true);
+            }
+        });
     </script>
-    <script type="module" src="assets/js/contact.js"></script>
 </body>
 </html>

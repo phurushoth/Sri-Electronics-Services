@@ -3,11 +3,12 @@ import {
     collection,
     addDoc,
     serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const contactForm = document.getElementById("contactForm");
 const submitBtn = document.getElementById("contactSubmit");
 
+/* ---------- Notification ---------- */
 const showNotification = (message, type = "success") => {
     const existing = document.querySelector(".notification");
     if (existing) existing.remove();
@@ -24,19 +25,47 @@ const showNotification = (message, type = "success") => {
     }, 4000);
 };
 
+/* ---------- EmailJS ---------- */
 const sendEmail = async (payload) => {
-    if (!window.emailjs) return;
-    const serviceId = "YOUR_EMAILJS_SERVICE_ID";
-    const templateId = "YOUR_EMAILJS_TEMPLATE_ID";
+    if (!window.emailjs) {
+        console.error("❌ EmailJS not loaded");
+        throw new Error("EmailJS not loaded");
+    }
 
-    return emailjs.send(serviceId, templateId, payload);
+    const serviceId = "service_2a4ptaq";
+    const templateId = "template_8e9vtwx";
+
+    try {
+        const result = await emailjs.send(serviceId, templateId, payload);
+        console.log("✅ Email sent successfully:", result);
+        return result;
+    } catch (error) {
+        console.error("❌ EmailJS failed:", error);
+        throw error;
+    }
+};
+const sendWhatsApp = async (payload) => {
+    const res = await fetch("send-whatsapp.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    if (!data.status) throw new Error("WhatsApp failed");
 };
 
+
+
+/* ---------- Form Submit ---------- */
 if (contactForm) {
     contactForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const formData = new FormData(contactForm);
+
         const submission = {
             name: formData.get("name"),
             phone: formData.get("phone"),
@@ -53,15 +82,15 @@ if (contactForm) {
             return;
         }
 
-        if (submitBtn) {
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Sending...";
-        }
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
 
         try {
+            /* Firebase */
             await addDoc(collection(db, "contactSubmissions"), submission);
             await addDoc(collection(db, "serviceBookings"), submission);
 
+            /* Email */
             await sendEmail({
                 name: submission.name,
                 phone: submission.phone,
@@ -73,15 +102,22 @@ if (contactForm) {
 
             showNotification("Thank you! Your request has been sent.");
             contactForm.reset();
+
         } catch (error) {
-            console.error(error);
             showNotification("Unable to send your message right now.", "error");
         } finally {
-            if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.textContent = "Send Message";
-            }
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Send Message";
         }
+        /* WhatsApp */
+await sendWhatsApp({
+    name: submission.name,
+    phone: submission.phone,
+    email: submission.email,
+    service: submission.service,
+    address: submission.address,
+    message: submission.message
+});
+
     });
 }
-
