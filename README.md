@@ -1,15 +1,24 @@
-# Sri-Electronics-Services
-Sri Electronics Service is a responsive service website built using HTML and CSS to showcase electronics repair services, contact details, and customer enquiry flow. The project focuses on clean layout structure, responsive design principles, and user-friendly presentation across desktop and mobile devices.
-
 # Sri Electronics Service Website
 
-Static marketing site plus a lightweight admin dashboard for Sri Electronics Service (Puducherry). The public pages highlight services, display a gallery, and list second-hand products sold at low cost. The admin dashboard lets you:
+A modern, responsive web platform for Sri Electronics Service (Puducherry) combining a static marketing site with a lightweight admin dashboard. The website showcases electronics repair services, displays a photo gallery, lists second-hand appliances, and manages customer inquiries.
 
-- View incoming contact/service booking submissions
-- Upload gallery images
-- Post second-hand products (not refurbished) that appear on the sales page
+## Features
 
-Both public data (gallery/products) and admin actions are backed by Firebase, while outbound emails are handled through EmailJS.
+**For Customers:**
+- Browse repair services and service areas
+- View service gallery with high-quality images
+- Browse second-hand appliances at affordable prices
+- Submit service requests and inquiries
+- Contact via WhatsApp integration
+
+**For Admin:**
+- Dashboard with analytics overview
+- Manage incoming contact/service booking submissions
+- Upload and organize gallery images
+- Add and manage second-hand product listings
+- Real-time data synchronization with Firestore
+
+All public data (gallery/products) and admin actions are backed by Firebase, while customer notifications are handled through EmailJS.
 
 ---
 
@@ -111,8 +120,38 @@ Open `http://localhost:5500` (or whichever port) to test.
 
 ---
 
+## Project Structure
+```
+Sri Electronics Website/
+├── index.html              # Homepage
+├── services.html           # Services page
+├── gallery.html            # Gallery showcase
+├── sales.html              # Second-hand appliances
+├── about.html              # About us
+├── contact.html            # Contact & service request form
+├── admin-login.html        # Admin authentication
+├── admin-dashboard.html    # Admin dashboard
+├── test.html               # Testing page
+├── package.json            # Dependencies
+├── assets/
+│   ├── css/
+│   │   └── site.css       # Global styles
+│   └── js/
+│       ├── firebase-config.js    # Firebase credentials
+│       ├── contact.js            # Contact form handler
+│       ├── dashboard.js          # Dashboard logic
+│       ├── admin-login.js        # Admin auth handler
+│       └── public-data.js        # Public data loader
+└── images/
+    └── [Product images]
+```
+
+---
+
 ## Deployment Tips
-- Host via Firebase Hosting for easiest integration.
+- Host via Firebase Hosting for easiest integration and automatic SSL.
+- Alternatively, use Netlify or Vercel for static hosting with CI/CD.
+- Ensure `.env` or configuration files with secrets are never committed to Git.
 - Always use HTTPS to avoid blocked module imports.
 - Keep Firebase credentials in `.env`/hosting secrets if you integrate with build tools.
 - Regularly prune gallery/product Storage files from the dashboard to save quota.
